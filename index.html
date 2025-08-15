@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>موقع تحقيق الأرباح السريعة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src='//pl27426393.profitableratecpm.com/e7/69/3b/e7693b11c2d259a0ee30cbc8d46388e3.js'></script>
     <style>
         * {
             margin: 0;
@@ -18,6 +20,7 @@
             line-height: 1.6;
             padding: 20px;
             min-height: 100vh;
+            position: relative;
         }
         
         .container {
@@ -33,6 +36,7 @@
             background: rgba(0, 0, 0, 0.3);
             border-radius: 15px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            position: relative;
         }
         
         h1 {
@@ -104,7 +108,7 @@
             padding: 40px;
             margin: 20px auto;
             max-width: 728px;
-            height: 90px;
+            min-height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -174,6 +178,124 @@
             font-size: 1.1rem;
         }
         
+        .trending-topics {
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 40px 0;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        
+        .trending-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .topics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .topic-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .topic-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .topic-card h3 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        
+        .topic-card p {
+            font-size: 0.9rem;
+            color: #e6e6e6;
+        }
+        
+        .stats-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ffd700;
+            color: #1a2a6c;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .stats-btn:hover {
+            transform: scale(1.05);
+            background: #ffc107;
+        }
+        
+        .ad-control {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #333;
+        }
+        
+        .ad-control h3 {
+            margin-bottom: 15px;
+            color: #1a2a6c;
+        }
+        
+        .ad-control textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            margin-bottom: 15px;
+            font-family: monospace;
+        }
+        
+        .ad-control button {
+            background: #1a2a6c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .ad-control button:hover {
+            background: #0d1a4d;
+        }
+        
+        .ad-placeholder {
+            background: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            color: #666;
+            font-weight: bold;
+            min-height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.2rem;
@@ -186,64 +308,90 @@
             .feature-card, .step {
                 padding: 20px;
             }
+            
+            .counter {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .stats-btn {
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
+    <a href="#" class="stats-btn">
+        <i class="fas fa-chart-line"></i>
+        الإحصائيات
+    </a>
+
     <div class="container">
         <header>
-            <h1><i class="fas fa-money-bill-wave"></i> موقع تحقيق الأرباح السريعة</h1>
+            <h1><i class="fas fa-money-bill-wave fa-fw"></i> موقع تحقيق الأرباح السريعة</h1>
             <p class="subtitle">موقع تلقائي بالكامل يحقق لك أرباحًا يومية دون أي تدخل منك. كل ما تحتاجه هو الإعداد الأولي ثم اترك الموقع يعمل لصالحك!</p>
         </header>
         
         <div class="counter">
             <div class="counter-item">
-                <div class="counter-number">5,287</div>
+                <div class="counter-number">0</div>
                 <div class="counter-label">دولار أرباح اليوم</div>
             </div>
             <div class="counter-item">
-                <div class="counter-number">157,430</div>
+                <div class="counter-number">0</div>
                 <div class="counter-label">دولار أرباح الشهر</div>
             </div>
             <div class="counter-item">
-                <div class="counter-number">1.2M</div>
+                <div class="counter-number">0</div>
                 <div class="counter-label">زائر شهريًا</div>
-            </div>
-        </div>
-        
-        <div class="features">
-            <div class="feature-card">
-                <h3><i class="fas fa-cogs"></i> التشغيل التلقائي</h3>
-                <p>بمجرد إعداد الموقع، يعمل بشكل كامل تلقائيًا دون حاجة لأي تدخل منك. يعمل على مدار الساعة لتحقيق الأرباح.</p>
-            </div>
-            <div class="feature-card">
-                <h3><i class="fas fa-money-check"></i> أرباح يومية</h3>
-                <p>يحقق الموقع أرباحًا يومية ثابتة تتراوح بين 50$ إلى 200$ يوميًا حسب الزيارات ومعدلات النقر.</p>
-            </div>
-            <div class="feature-card">
-                <h3><i class="fas fa-globe"></i> حركة مرور مجانية</h3>
-                <p>نظام متكامل لجلب الزوار بشكل تلقائي من محركات البحث ومواقع التواصل الاجتماعي دون أي تكلفة.</p>
             </div>
         </div>
         
         <div class="ad-container">
             <h3 class="ad-title">الإعلانات التي تحقق لك الأرباح</h3>
-            <p>هذه المساحة مخصصة لعرض إعلانات Google AdSense التي ستدر عليك دخلاً مع كل نقرة أو مشاهدة</p>
-            <div class="ad-example">إعلان Google AdSense - أرباح تلقائية</div>
+            <p>هذه المساحة مخصصة لعرض إعلانات Adsterra التي ستدر عليك دخلاً مع كل نقرة أو مشاهدة</p>
+            <div class="ad-example" id="ad1">
+                <!-- إعلان Adsterra سيظهر هنا تلقائياً -->
+            </div>
             <p>كلما زاد عدد زوار موقعك، زادت أرباحك من هذه الإعلانات!</p>
+        </div>
+        
+        <div class="trending-topics">
+            <div class="trending-header">
+                <h2><i class="fas fa-fire"></i> المواضيع المتجددة والترند</h2>
+                <div id="refresh-topics" style="cursor:pointer">
+                    <i class="fas fa-sync-alt"></i> تحديث
+                </div>
+            </div>
+            <div class="topics-grid" id="topics-container">
+                <!-- المواضيع ستظهر هنا تلقائياً -->
+            </div>
+        </div>
+        
+        <div class="ad-control">
+            <h3><i class="fas fa-plus-circle"></i> أضف إعلانًا يدويًا</h3>
+            <p>يمكنك إضافة أكواد إعلانية جديدة في المساحات المخصصة أدناه:</p>
+            <textarea id="ad-code" placeholder="الصق كود الإعلان هنا..."></textarea>
+            <button id="add-ad-btn"><i class="fas fa-plus"></i> إضافة إعلان</button>
+        </div>
+        
+        <div class="ad-placeholder" id="manual-ad1">
+            <p>هذه مساحة للإعلانات المضافة يدويًا</p>
         </div>
         
         <div class="steps">
             <div class="step">
                 <div class="step-number">1</div>
-                <h3>التسجيل في AdSense</h3>
-                <p>أنشئ حساب مجاني على Google AdSense لبدء تحقيق الأرباح</p>
+                <h3>التسجيل في Adsterra</h3>
+                <p>أنشئ حساب مجاني على Adsterra لبدء تحقيق الأرباح</p>
             </div>
             <div class="step">
                 <div class="step-number">2</div>
                 <h3>إضافة موقعك</h3>
-                <p>أضف موقعك إلى حساب AdSense لتفعيل الإعلانات</p>
+                <p>أضف موقعك إلى حساب Adsterra لتفعيل الإعلانات</p>
             </div>
             <div class="step">
                 <div class="step-number">3</div>
@@ -254,29 +402,35 @@
         
         <div class="features">
             <div class="feature-card">
-                <h3><i class="fas fa-sync-alt"></i> التحديث التلقائي</h3>
+                <h3><i class="fas fa-sync-alt fa-fw"></i> التحديث التلقائي</h3>
                 <p>يتحدث المحتوى تلقائيًا يوميًا للحفاظ على تصدر نتائج البحث وجلب زوار جدد.</p>
             </div>
             <div class="feature-card">
-                <h3><i class="fas fa-shield-alt"></i> آمن ومضمون</h3>
+                <h3><i class="fas fa-shield-alt fa-fw"></i> آمن ومضمون</h3>
                 <p>نظام حماية متكامل ضد الاختراق والمشاكل التقنية مع نسخ احتياطية يومية.</p>
             </div>
             <div class="feature-card">
-                <h3><i class="fas fa-chart-line"></i> تقارير مفصلة</h3>
+                <h3><i class="fas fa-chart-line fa-fw"></i> تقارير مفصلة</h3>
                 <p>لوحة تحكم تظهر لك الأرباح اليومية والزيارات ومصادر الدخل بشكل مفصل.</p>
             </div>
         </div>
         
         <div class="ad-container">
             <h3 class="ad-title">مصادر أخرى للأرباح</h3>
-            <p>بالإضافة إلى إعلانات AdSense، يمكنك تحقيق أرباح من:</p>
-            <div class="ad-example">إعلانات الشركات - التسويق بالعمولة - المنتجات الرقمية</div>
+            <p>بالإضافة إلى إعلانات Adsterra، يمكنك تحقيق أرباح من:</p>
+            <div class="ad-example" id="ad2">
+                <!-- إعلان Adsterra سيظهر هنا تلقائياً -->
+            </div>
             <p>نظام متكامل لتعدد مصادر الدخل وزيادة الأرباح</p>
+        </div>
+        
+        <div class="ad-placeholder" id="manual-ad2">
+            <p>هذه مساحة للإعلانات المضافة يدويًا</p>
         </div>
         
         <footer>
             <h3>ابدأ في تحقيق أرباحك اليوم!</h3>
-            <p>هذا الموقع جاهز للاستخدام. كل ما تحتاجه هو إضافة حساب AdSense الخاص بك وستبدأ الأرباح في التدفق.</p>
+            <p>هذا الموقع جاهز للاستخدام. كل ما تحتاجه هو إضافة حساب Adsterra الخاص بك وستبدأ الأرباح في التدفق.</p>
             <p>للحصول على الإصدار الكامل من الموقع مع دعم فني، يرجى التواصل معنا.</p>
             <p>جميع الحقوق محفوظة &copy; 2023 موقع تحقيق الأرباح السريعة</p>
         </footer>
@@ -321,7 +475,133 @@
         };
         
         // بدء العدادات عند تحميل الصفحة
-        window.onload = startCounter;
+        document.addEventListener("DOMContentLoaded", function() {
+            startCounter();
+            
+            // تنفيذ إعلانات Adsterra
+            executeAdsterraAds();
+            
+            // تحميل المواضيع المتجددة
+            loadTrendingTopics();
+            
+            // إعداد تحديث المواضيع
+            setInterval(loadTrendingTopics, 30000);
+            
+            // إعداد زر تحديث المواضيع
+            document.getElementById('refresh-topics').addEventListener('click', loadTrendingTopics);
+            
+            // إعداد إضافة الإعلانات يدويًا
+            document.getElementById('add-ad-btn').addEventListener('click', addManualAd);
+        });
+        
+        // قائمة بالمواضيع المتجددة
+        const trendingTopics = [
+            {
+                title: "Artificial Intelligence Trends 2023",
+                description: "The latest advancements in AI technology and how they're changing industries worldwide.",
+                category: "Technology"
+            },
+            {
+                title: "Cryptocurrency Market Analysis",
+                description: "Current trends and predictions for Bitcoin, Ethereum, and other major cryptocurrencies.",
+                category: "Finance"
+            },
+            {
+                title: "Sustainable Energy Solutions",
+                description: "Innovative approaches to renewable energy and their global impact.",
+                category: "Environment"
+            },
+            {
+                title: "Remote Work Productivity Tips",
+                description: "How to maximize your efficiency while working from home.",
+                category: "Business"
+            },
+            {
+                title: "Health Tech Innovations",
+                description: "Cutting-edge technologies revolutionizing healthcare and personal wellness.",
+                category: "Health"
+            },
+            {
+                title: "E-commerce Growth Strategies",
+                description: "Proven methods to scale your online business in competitive markets.",
+                category: "Marketing"
+            },
+            {
+                title: "Blockchain Applications",
+                description: "Beyond cryptocurrency: practical uses for blockchain technology.",
+                category: "Technology"
+            },
+            {
+                title: "Mental Wellness in Digital Age",
+                description: "Maintaining mental health in an increasingly connected world.",
+                category: "Health"
+            }
+        ];
+        
+        // تحميل المواضيع المتجددة
+        function loadTrendingTopics() {
+            const container = document.getElementById('topics-container');
+            container.innerHTML = '';
+            
+            // اختيار 6 مواضيع عشوائية
+            const shuffled = [...trendingTopics].sort(() => 0.5 - Math.random());
+            const selectedTopics = shuffled.slice(0, 6);
+            
+            selectedTopics.forEach(topic => {
+                const topicCard = document.createElement('div');
+                topicCard.className = 'topic-card';
+                topicCard.innerHTML = `
+                    <span style="background:#ffd700; color:#1a2a6c; padding:3px 8px; border-radius:5px; font-size:0.8rem; display:inline-block; margin-bottom:10px;">${topic.category}</span>
+                    <h3>${topic.title}</h3>
+                    <p>${topic.description}</p>
+                `;
+                container.appendChild(topicCard);
+            });
+        }
+        
+        // إضافة إعلان يدوي
+        function addManualAd() {
+            const adCode = document.getElementById('ad-code').value;
+            if (!adCode.trim()) return;
+            
+            // اختيار مكان عشوائي للإعلان
+            const adPlaceholders = ['manual-ad1', 'manual-ad2'];
+            const randomAd = adPlaceholders[Math.floor(Math.random() * adPlaceholders.length)];
+            
+            const adContainer = document.getElementById(randomAd);
+            adContainer.innerHTML = adCode;
+            
+            // مسح حقل الإدخال
+            document.getElementById('ad-code').value = '';
+            
+            // تنفيذ أي سكريبتات في كود الإعلان
+            const scripts = adContainer.getElementsByTagName('script');
+            for (let i = 0; i < scripts.length; i++) {
+                eval(scripts[i].innerHTML);
+            }
+            
+            alert('تمت إضافة الإعلان بنجاح!');
+        }
+        
+        // تنفيذ إعلانات Adsterra
+        function executeAdsterraAds() {
+            // هذه مجرد محاكاة، في الواقع سيعمل السكريبت المرفق تلقائياً
+            const adContainers = ['ad1', 'ad2'];
+            
+            adContainers.forEach(ad => {
+                const container = document.getElementById(ad);
+                container.innerHTML = `
+                    <div style="background:#f0f0f0; padding:20px; border-radius:5px; text-align:center;">
+                        <h3 style="color:#333; margin-bottom:10px;">إعلان Adsterra</h3>
+                        <p style="color:#666;">هذه مساحة إعلانية للعرض</p>
+                        <div style="margin:15px 0; padding:15px; background:#eaeaea; border-radius:5px;">
+                            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNzIwIiBoZWlnaHQ9IjkwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiNmZmYiLz48dGV4dCB4PSIzNjAiIHk9IjQ1IiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiMzMzMiPkFkc3RlcnJBIEFkICg3MjB4OTApPC90ZXh0Pjwvc3ZnPg==" alt="Adsterra Ad">
+                        </div>
+                        <p style="color:#888; font-size:0.9rem;">سيتم استبدال هذا بالإعلان الحقيقي</p>
+                    </div>
+                `;
+            });
+        }
         
         // تأثير التمرير السلس
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
