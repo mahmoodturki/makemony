@@ -1,162 +1,612 @@
-<!DOCTYPE html>
-<html lang="ar">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مقالات ترند</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-        }
+#!/usr/bin/env bash
+set -euo pipefail
 
-        header {
-            background: #35424a;
-            color: #ffffff;
-            padding: 20px 0;
-            text-align: center;
-        }
+APP="trendpress"
+mkdir -p "$APP"
+cd "$APP" || exit 1
 
-        nav ul {
-            list-style: none;
-            padding: 0;
-        }
+echo "Creating project structure in $(pwd)..."
 
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
+# Helper to write file with heredoc
+wfile() {
+  local filepath="$1"; shift
+  mkdir -p "$(dirname "$filepath")"
+  cat > "$filepath" <<'EOF'
+'"$@"'
+EOF
+  # Replace the placeholder '"$@"' with actual content passed after the first arg
+  # We'll use a safer method: write via a temporary file from stdin below.
+}
 
-        nav ul li a {
-            color: #ffffff;
-            text-decoration: none;
-        }
+# Instead of using the above helper (which is placeholder), we'll write files directly using cat <<'EOF'
 
-        .articles {
-            background: #ffffff;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
+# .gitignore
+mkdir -p . 
+cat > .gitignore <<'EOF'
+# dependencies
+/node_modules
+/.pnp
+.pnp.js
 
-        footer {
-            text-align: center;
-            padding: 10px 0;
-            background: #35424a;
-            color: #ffffff;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
+# testing
+/coverage
 
-        .visitor-counter {
-            font-size: 1.5em;
-            color: #35424a;
-            margin: 20px 0;
-        }
+# next.js
+/.next/
+/out/
 
-        .carousel-item img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>مقالات ترند في مجالات متنوعة</h1>
-        <nav>
-            <ul>
-                <li><a href="#ai">أدوات الذكاء الاصطناعي</a></li>
-                <li><a href="#money">الربح من الإنترنت</a></li>
-                <li><a href="#weight-loss">فقدان الوزن</a></li>
-            </ul>
-        </nav>
-    </header>
+# production
+/build
 
-    <div id="visitorCounter" class="visitor-counter text-center">عدد الزوار: <span id="visitorCount">0</span></div>
+# misc
+.DS_Store
+*.log
+.env
+*.sqlite
+.prisma/
+/dev.db
+EOF
+echo "✓ wrote .gitignore"
 
-    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                &lt;img src="https://via.placeholder.com/800x400?text=أدوات+الذكاء+الاصطناعي" class="d-block w-100" alt="أدوات الذكاء الاصطناعي"&gt;
-            </div>
-            <div class="carousel-item">
-                &lt;img src="https://via.placeholder.com/800x400?text=الربح+من+الإنترنت" class="d-block w-100" alt="الربح من الإنترنت"&gt;
-            </div>
-            <div class="carousel-item">
-                &lt;img src="https://via.placeholder.com/800x400?text=فقدان+الوزن" class="d-block w-100" alt="فقدان الوزن"&gt;
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">السابق</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">التالي</span>
-        </a>
+# package.json
+cat > package.json <<'EOF'
+{
+  "name": "trendpress",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "seed": "ts-node --transpile-only scripts/seed.ts",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.16.1",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "next": "^14.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "rss-parser": "^3.12.0",
+    "slugify": "^1.6.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/line-clamp": "^0.4.4",
+    "@tailwindcss/typography": "^0.5.15",
+    "@types/bcrypt": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/node": "^20.14.9",
+    "autoprefixer": "^10.4.19",
+    "postcss": "^8.4.39",
+    "prisma": "^5.16.1",
+    "tailwindcss": "^3.4.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  }
+}
+EOF
+echo "✓ wrote package.json"
+
+# tsconfig.json
+cat > tsconfig.json <<'EOF'
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["dom", "dom.iterable", "es2020"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "types": ["node"]
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "scripts/**/*.ts"],
+  "exclude": ["node_modules"]
+}
+EOF
+echo "✓ wrote tsconfig.json"
+
+# next.config.mjs
+cat > next.config.mjs <<'EOF'
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  experimental: { serverActions: { bodySizeLimit: '2mb' } }
+};
+export default nextConfig;
+EOF
+echo "✓ wrote next.config.mjs"
+
+# postcss.config.js
+cat > postcss.config.js <<'EOF'
+module.exports = { plugins: { tailwindcss: {}, autoprefixer: {} } }
+EOF
+echo "✓ wrote postcss.config.js"
+
+# tailwind.config.ts
+cat > tailwind.config.ts <<'EOF'
+import type { Config } from 'tailwindcss'
+const config: Config = {
+  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./pages/**/*.{ts,tsx}"],
+  theme: { extend: {} },
+  plugins: [require('@tailwindcss/typography'), require('@tailwindcss/line-clamp')],
+}
+export default config
+EOF
+echo "✓ wrote tailwind.config.ts"
+
+# .env.example
+cat > .env.example <<'EOF'
+DATABASE_URL="file:./dev.db"
+JWT_SECRET="replace_with_long_random_secret"
+ADMIN_EMAIL="admin@example.com"
+ADMIN_PASSWORD="StrongPassword123!"
+EOF
+echo "✓ wrote .env.example"
+
+# prisma schema
+mkdir -p prisma
+cat > prisma/schema.prisma <<'EOF'
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  title       String
+  slug        String   @unique
+  excerpt     String?
+  content     String
+  sourceUrl   String?
+  trendTerm   String?
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+EOF
+echo "✓ wrote prisma/schema.prisma"
+
+# lib files
+mkdir -p lib
+cat > lib/db.ts <<'EOF'
+import { PrismaClient } from "@prisma/client";
+const globalForPrisma = global as unknown as { prisma: PrismaClient };
+export const prisma = globalForPrisma.prisma || new PrismaClient();
+if (process.env.NODE_ENV !== "production") globalForPrisma.prisma = prisma;
+EOF
+echo "✓ wrote lib/db.ts"
+
+cat > lib/auth.ts <<'EOF'
+import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
+import { prisma } from "./db";
+
+const JWT_SECRET = process.env.JWT_SECRET!;
+export type JWTPayload = { uid: number; email: string };
+
+export async function authenticate(email: string, password: string) {
+  const user = await prisma.user.findUnique({ where: { email } });
+  if (!user) return null;
+  const ok = await bcrypt.compare(password, user.password);
+  if (!ok) return null;
+  const token = jwt.sign({ uid: user.id, email: user.email }, JWT_SECRET, { expiresIn: "7d" });
+  return { token };
+}
+
+export function verifyToken(token?: string) {
+  if (!token) return null;
+  try {
+    return jwt.verify(token, JWT_SECRET) as JWTPayload;
+  } catch {
+    return null;
+  }
+}
+EOF
+echo "✓ wrote lib/auth.ts"
+
+# middleware
+cat > middleware.ts <<'EOF'
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+import { verifyToken } from "./lib/auth";
+
+export function middleware(req: NextRequest) {
+  if (req.nextUrl.pathname.startsWith("/admin")) {
+    const token = req.cookies.get("token")?.value;
+    const payload = verifyToken(token);
+    if (!payload) {
+      const url = new URL("/admin/login", req.url);
+      return NextResponse.redirect(url);
+    }
+  }
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ["/admin/:path*"],
+};
+EOF
+echo "✓ wrote middleware.ts"
+
+# app folder and files
+mkdir -p app/api/login app/api/cron/gtrends app/api/posts app/admin app/[slug]
+mkdir -p app/public
+
+cat > app/globals.css <<'EOF'
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+EOF
+echo "✓ wrote app/globals.css"
+
+cat > app/layout.tsx <<'EOF'
+import "./globals.css";
+import type { Metadata } from "next";
+import Script from "next/script";
+
+export const metadata: Metadata = {
+  title: "TrendPress | Auto Trending Articles",
+  description: "Trending articles generated automatically from public sources.",
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <head>
+        {/* Google AdSense (put your client id after approval) */}
+        {/* <Script id="adsense" strategy="afterInteractive" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossOrigin="anonymous" /> */}
+        {/* Adsterra code can go here */}
+      </head>
+      <body className="min-h-screen bg-white text-gray-900">
+        <header className="border-b sticky top-0 bg-white/70 backdrop-blur z-20">
+          <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="/" className="font-bold text-xl">TrendPress</a>
+            <nav className="text-sm space-x-4">
+              <a href="/admin" className="hover:underline">Admin</a>
+            </nav>
+          </div>
+        </header>
+        <main className="max-w-5xl mx-auto px-4 py-6">{children}</main>
+        <footer className="border-t mt-10">
+          <div className="max-w-5xl mx-auto px-4 py-8 text-sm text-gray-500">
+            © {new Date().getFullYear()} TrendPress — Content sourced & summarized with attribution.
+          </div>
+        </footer>
+      </body>
+    </html>
+  );
+}
+EOF
+echo "✓ wrote app/layout.tsx"
+
+cat > app/page.tsx <<'EOF'
+import { prisma } from "../lib/db";
+import Link from "next/link";
+
+export default async function Home() {
+  const posts = await prisma.post.findMany({ orderBy: { createdAt: "desc" }, take: 20 });
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {posts.map(p => (
+          <article key={p.id} className="border rounded-2xl p-5 hover:shadow-md transition">
+            <h2 className="font-semibold text-xl mb-2"><Link href={`/${p.slug}`}>{p.title}</Link></h2>
+            {p.excerpt && <p className="text-gray-600 line-clamp-3">{p.excerpt}</p>}
+            <div className="text-xs text-gray-400 mt-3">{new Date(p.createdAt).toLocaleString()}</div>
+          </article>
+        ))}
+      </div>
+      <div className="border rounded-xl p-4 text-center text-sm text-gray-500">Ad Slot</div>
     </div>
+  );
+}
+EOF
+echo "✓ wrote app/page.tsx"
 
-    <main class="container mt-4">
-        <section id="ai">
-            <h2>أدوات الذكاء الاصطناعي</h2>
-            <div id="ai-articles" class="articles"></div>
-        </section>
+cat > app/[slug]/page.tsx <<'EOF'
+import { prisma } from "../../lib/db";
+import { notFound } from "next/navigation";
 
-        <section id="money">
-            <h2>الربح من الإنترنت</h2>
-            <div id="money-articles" class="articles"></div>
-        </section>
+export default async function PostPage({ params }: { params: { slug: string } }) {
+  const post = await prisma.post.findUnique({ where: { slug: params.slug } });
+  if (!post) return notFound();
+  return (
+    <article className="prose max-w-none">
+      <h1>{post.title}</h1>
+      {post.trendTerm && (
+        <p className="text-sm text-gray-500">Trending term: {post.trendTerm}</p>
+      )}
+      <div dangerouslySetInnerHTML={{ __html: post.content }} />
+      {post.sourceUrl && (
+        <p className="text-sm text-gray-500 mt-6">Source / Attribution: <a href={post.sourceUrl} target="_blank" rel="noreferrer" className="underline">Wikipedia</a></p>
+      )}
+      <div className="my-6 border rounded-xl p-4 text-center text-sm text-gray-500">Ad Slot</div>
+    </article>
+  );
+}
+EOF
+echo "✓ wrote app/[slug]/page.tsx"
 
-        <section id="weight-loss">
-            <h2>فقدان الوزن</h2>
-            <div id="weight-loss-articles" class="articles"></div>
-        </section>
-    </main>
+cat > app/admin/login/page.tsx <<'EOF'
+"use client";
+import { useState } from "react";
 
-    <footer>
-        <p>جميع الحقوق محفوظة &copy; 2025</p>
-    </footer>
+export default function AdminLogin() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script>
-        const articles = {
-            ai: [
-                { title: "أفضل أدوات الذكاء الاصطناعي لعام 2025", link: "#" },
-                { title: "كيف يمكن للذكاء الاصطناعي تحسين الأعمال", link: "#" },
-            ],
-            money: [
-                { title: "طرق مبتكرة للربح من الإنترنت", link: "#" },
-                { title: "استراتيجيات ناجحة لزيادة الدخل", link: "#" },
-            ],
-            weightLoss: [
-                { title: "نصائح فعالة لفقدان الوزن بسرعة", link: "#" },
-                { title: "أفضل الأنظمة الغذائية لفقدان الوزن", link: "#" },
-            ],
-        };
+  async function submit(e: React.FormEvent) {
+    e.preventDefault(); setLoading(true); setError("");
+    const res = await fetch("/api/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email, password }) });
+    const data = await res.json();
+    setLoading(false);
+    if (!res.ok) return setError(data.message || "Login failed");
+    document.location.href = "/admin";
+  }
 
-        function loadArticles() {
-            const aiContainer = document.getElementById('ai-articles');
-            const moneyContainer = document.getElementById('money-articles');
-            const weightLossContainer = document.getElementById('weight-loss-articles');
+  return (
+    <div className="max-w-sm mx-auto border rounded-2xl p-6">
+      <h1 className="text-xl font-semibold mb-4">Admin Login</h1>
+      <form onSubmit={submit} className="space-y-3">
+        <input className="w-full border rounded-xl p-2" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} />
+        <input className="w-full border rounded-xl p-2" type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} />
+        {error && <div className="text-red-600 text-sm">{error}</div>}
+        <button disabled={loading} className="w-full bg-black text-white rounded-xl p-2">{loading?"...":"Login"}</button>
+      </form>
+    </div>
+  );
+}
+EOF
+echo "✓ wrote app/admin/login/page.tsx"
 
-            articles.ai.forEach(article => {
-                aiContainer.innerHTML += `<p><a href="${article.link}">${article.title}</a></p>`;
-            });
+cat > app/admin/page.tsx <<'EOF'
+import { prisma } from "../../lib/db";
+import Link from "next/link";
 
-            articles.money.forEach(article => {
-                moneyContainer.innerHTML += `<p><a href="${article.link}">${article.title}</a></p>`;
-            });
+export default async function AdminHome() {
+  const posts = await prisma.post.findMany({ orderBy: { createdAt: "desc" } });
+  return (
+    <div>
+      <h1 className="text-2xl font-semibold mb-4">Dashboard</h1>
+      <div className="mb-4"><Link className="underline" href="/api/cron/gtrends?run=1">Run Fetch Trending Now</Link></div>
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="text-left border-b">
+            <th className="py-2">Title</th>
+            <th>Published</th>
+            <th>Created</th>
+          </tr>
+        </thead>
+        <tbody>
+          {posts.map(p => (
+            <tr key={p.id} className="border-b">
+              <td className="py-2"><Link className="underline" href={`/${p.slug}`}>{p.title}</Link></td>
+              <td>{p.published?"Yes":"No"}</td>
+              <td>{new Date(p.createdAt).toLocaleString()}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+EOF
+echo "✓ wrote app/admin/page.tsx"
 
-            articles.weightLoss.forEach(article => {
-                weightLossContainer.innerHTML += `<p><a href="${article.link}">${article.title}</a></p>`;
-            });
-        }
+# API routes
+cat > app/api/login/route.ts <<'EOF'
+import { NextResponse } from "next/server";
+import { authenticate } from "../../../lib/auth";
 
-        // عداد الزوار
-        let visitorCount
+export async function POST(req: Request) {
+  const { email, password } = await req.json();
+  const auth = await authenticate(email, password);
+  if (!auth) return NextResponse.json({ message: "Invalid credentials" }, { status: 401 });
+  const res = NextResponse.json({ ok: true });
+  res.cookies.set("token", auth.token, { httpOnly: true, secure: true, sameSite: "lax", path: "/", maxAge: 60*60*24*7 });
+  return res;
+}
+EOF
+echo "✓ wrote app/api/login/route.ts"
+
+cat > app/api/posts/route.ts <<'EOF'
+import { NextResponse } from "next/server";
+import { prisma } from "../../../lib/db";
+import slugify from "slugify";
+
+export async function GET() {
+  const posts = await prisma.post.findMany({ orderBy: { createdAt: "desc" } });
+  return NextResponse.json(posts);
+}
+
+export async function POST(req: Request) {
+  const { title, content, excerpt, sourceUrl, trendTerm } = await req.json();
+  const slug = slugify(title, { lower: true, strict: true }) + "-" + Math.random().toString(36).slice(2,7);
+  const post = await prisma.post.create({ data: { title, content, excerpt, sourceUrl, trendTerm, slug } });
+  return NextResponse.json(post);
+}
+EOF
+echo "✓ wrote app/api/posts/route.ts"
+
+cat > app/api/cron/gtrends/route.ts <<'EOF'
+import { NextResponse } from "next/server";
+import Parser from "rss-parser";
+import slugify from "slugify";
+import { prisma } from "../../../../lib/db";
+
+const TRENDS_RSS = "https://trends.google.com/trends/trendingsearches/daily/rss?geo=US";
+
+async function fetchWikipediaSummary(term: string) {
+  const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(term)}`;
+  const res = await fetch(url, { headers: { "User-Agent": "TrendPressBot/1.0" } });
+  if (!res.ok) return null;
+  const data = await res.json();
+  if (!data.extract) return null;
+  const html = `
+    <p>${data.extract}</p>
+    ${data.description ? `<p><em>${data.description}</em></p>` : ""}
+  `;
+  return { html, sourceUrl: data.content_urls?.desktop?.page || `https://en.wikipedia.org/wiki/${encodeURIComponent(term)}` };
+}
+
+function buildArticleHTML(term: string, summaryHTML: string) {
+  return `
+    <p><strong>${term}</strong> is trending today. Here's a quick explainer and context compiled from public sources.</p>
+    ${summaryHTML}
+    <h2>Why is it trending?</h2>
+    <ul>
+      <li>Spiking interest across news and social media.</li>
+      <li>People are searching for quick facts and background.</li>
+      <li>Developing story; details may evolve.</li>
+    </ul>
+    <h2>Quick facts</h2>
+    <ul>
+      <li>Updated: ${new Date().toUTCString()}</li>
+      <li>Topic: ${term}</li>
+    </ul>
+  `;
+}
+
+export async function GET(req: Request) {
+  const { searchParams } = new URL(req.url);
+  const run = searchParams.get("run");
+  if (!run) return NextResponse.json({ ok: true, message: "Append ?run=1 to execute" });
+
+  const parser = new Parser();
+  const feed = await parser.parseURL(TRENDS_RSS);
+  const items = (feed.items || []).slice(0, 8);
+
+  let created = 0;
+  for (const it of items) {
+    const term = (it.title || "").trim();
+    if (!term) continue;
+    const existing = await prisma.post.findFirst({ where: { trendTerm: term, createdAt: { gte: new Date(Date.now() - 1000*60*60*24*2) } } });
+    if (existing) continue;
+
+    const wiki = await fetchWikipediaSummary(term);
+    if (!wiki) continue;
+    const content = buildArticleHTML(term, wiki.html);
+    const title = `${term}: What to know now`;
+    const slug = slugify(title, { lower: true, strict: true }) + "-" + Math.random().toString(36).slice(2,6);
+
+    await prisma.post.create({ data: {
+      title,
+      slug,
+      trendTerm: term,
+      excerpt: `Why ${term} is trending and key facts in brief.`,
+      content,
+      sourceUrl: wiki.sourceUrl,
+      published: true,
+    }});
+    created++;
+  }
+  return NextResponse.json({ ok: true, created });
+}
+EOF
+echo "✓ wrote app/api/cron/gtrends/route.ts"
+
+# scripts
+mkdir -p scripts
+cat > scripts/seed.ts <<'EOF'
+import "dotenv/config";
+import bcrypt from "bcrypt";
+import { prisma } from "../lib/db";
+
+async function main() {
+  const email = process.env.ADMIN_EMAIL!;
+  const pass = process.env.ADMIN_PASSWORD!;
+  const hash = await bcrypt.hash(pass, 10);
+  await prisma.user.upsert({
+    where: { email },
+    update: {},
+    create: { email, password: hash },
+  });
+  console.log("Admin ensured:", email);
+}
+
+main().then(()=>process.exit(0)).catch((e)=>{console.error(e);process.exit(1);});
+EOF
+echo "✓ wrote scripts/seed.ts"
+
+# README
+cat > README.md <<'EOF'
+# TrendPress — Auto Trending Articles
+
+Next.js 14 + Prisma + RSS + Wikipedia Summaries. Generates daily posts from Google Trends. Admin login with JWT cookie.
+
+## Quick Start
+1. cp .env.example .env
+2. npm i
+3. npx prisma migrate dev --name init
+4. npm run seed  # optional
+5. npm run dev
+
+Deploy to Vercel and add Cron to `/api/cron/gtrends?run=1`.
+EOF
+echo "✓ wrote README.md"
+
+echo ""
+echo "All files created under: $(pwd)"
+cat <<'INSTR'
+
+Next steps (run these in the project root):
+
+1) Copy example env and edit secrets:
+   cp .env.example .env
+   # then open .env and set JWT_SECRET to a long random string
+
+2) Install dependencies:
+   npm install
+
+3) Initialize Prisma DB and run migrations:
+   npx prisma migrate dev --name init
+
+4) Create admin user (optional):
+   npm run seed
+
+5) Run dev server:
+   npm run dev
+   # then open http://localhost:3000
+
+6) To push to GitHub:
+   git init
+   git add .
+   git commit -m "Initial commit: TrendPress MVP"
+   # create a repo on GitHub then:
+   git remote add origin https://github.com/YOURUSERNAME/trendpress.git
+   git branch -M main
+   git push -u origin main
+
+7) Deploy to Vercel and add Cron Job for:
+   GET /api/cron/gtrends?run=1
+
+Notes:
+- Edit app/layout.tsx to paste AdSense / Adsterra codes after you get approval.
+- Change TRENDS_RSS geo parameter in app/api/cron/gtrends/route.ts if you want a different country.
+- For production use PostgreSQL, change DATABASE_URL accordingly and run prisma migrate deploy.
+
+INSTR
+
+echo "Done."
