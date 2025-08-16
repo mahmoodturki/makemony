@@ -328,6 +328,13 @@
             cursor: pointer;
         }
         
+        .thumbnail {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
         @media (max-width: 768px) {
             .sidebar {
                 position: relative;
@@ -396,6 +403,122 @@
         </div>
     </nav>
 
+    <!-- Home Page -->
+    <div id="home-page" class="page active-page">
+        <div class="container my-5">
+            <div class="row">
+                <!-- Main Content -->
+                <div class="col-lg-8">
+                    <div class="mb-5">
+                        <h2 class="mb-4 border-bottom pb-2">آخر المقالات</h2>
+                        <div class="row" id="articles-container">
+                            <!-- سيتم تعبئتها ديناميكيًا -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Categories -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-dark text-white">
+                            <i class="fas fa-tags me-2"></i> التصنيفات
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex flex-wrap">
+                                <button class="btn btn-sm btn-outline-primary category-btn" onclick="showCategory('world')">أخبار عالمية</button>
+                                <button class="btn btn-sm btn-outline-secondary category-btn" onclick="showCategory('politics')">السياسة</button>
+                                <button class="btn btn-sm btn-outline-success category-btn" onclick="showCategory('economy')">الاقتصاد</button>
+                                <button class="btn btn-sm btn-outline-danger category-btn" onclick="showCategory('technology')">التكنولوجيا</button>
+                                <button class="btn btn-sm btn-outline-info category-btn" onclick="showCategory('health')">الصحة</button>
+                                <button class="btn btn-sm btn-outline-warning category-btn" onclick="showCategory('weight-loss')">فقدان الوزن</button>
+                                <button class="btn btn-sm btn-outline-dark category-btn" onclick="showCategory('sports')">الرياضة</button>
+                                <button class="btn btn-sm btn-outline-primary category-btn" onclick="showCategory('food')">الطعام</button>
+                                <button class="btn btn-sm btn-outline-secondary category-btn" onclick="showCategory('entertainment')">الترفيه</button>
+                                <button class="btn btn-sm btn-outline-success category-btn" onclick="showCategory('environment')">البيئة</button>
+                                <button class="btn btn-sm btn-outline-danger category-btn" onclick="showCategory('education')">التعليم</button>
+                                <button class="btn btn-sm btn-outline-info category-btn" onclick="showCategory('culture')">الثقافة</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latest Articles -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-success text-white">
+                            <i class="fas fa-bolt me-2"></i> أحدث المقالات
+                        </div>
+                        <div class="list-group list-group-flush" id="latest-articles">
+                            <!-- سيتم تعبئتها ديناميكيًا -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Article Page -->
+    <div id="article-page" class="page">
+        <div class="container my-5">
+            <button class="btn btn-outline-primary mb-4" onclick="showPage('home-page')">
+                <i class="fas fa-arrow-right me-2"></i> العودة للأخبار
+            </button>
+            
+            <article class="bg-white p-4 rounded shadow">
+                <h1 id="article-title"></h1>
+                <div class="d-flex justify-content-between border-bottom pb-3 mb-4">
+                    <span id="article-author" class="text-muted"></span>
+                    <span id="article-date" class="text-muted"></span>
+                </div>
+                <div id="article-image-container" class="text-center mb-4"></div>
+                <div id="article-content" class="article-content"></div>
+                
+                <div class="mt-5 pt-4 border-top">
+                    <h4><i class="fas fa-tags me-2"></i> التصنيف: <span id="article-category" class="badge bg-primary"></span></h4>
+                </div>
+            </article>
+            
+            <div class="mt-5">
+                <h4 class="mb-4">مقالات ذات صلة</h4>
+                <div class="row" id="related-articles">
+                    <!-- سيتم تعبئتها ديناميكيًا -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Page -->
+    <div id="admin-login" class="page">
+        <div class="container my-5 py-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card shadow-lg">
+                        <div class="card-header bg-dark text-white text-center py-3">
+                            <h3><i class="fas fa-lock me-2"></i>دخول المشرفين</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <form id="loginForm">
+                                <div class="mb-4">
+                                    <label class="form-label">اسم المستخدم</label>
+                                    <input type="text" class="form-control form-control-lg" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">كلمة المرور</label>
+                                    <input type="password" class="form-control form-control-lg" required>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">تسجيل الدخول</button>
+                                </div>
+                                <div class="text-center mt-4">
+                                    <a href="#" class="text-muted" onclick="showPage('home-page')"><i class="fas fa-arrow-right me-1"></i> العودة إلى الموقع</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Admin Dashboard -->
     <div id="admin-dashboard" class="page">
         <div class="admin-container d-flex">
@@ -450,10 +573,10 @@
                             <div class="card stat-card bg-primary text-white">
                                 <div class="card-body">
                                     <h6>إجمالي الزوار</h6>
-                                    <h2>24,581</h2>
+                                    <h2 id="total-visitors">0</h2>
                                     <div class="d-flex align-items-center">
-                                        <span class="me-2">+12.5%</span>
-                                        <i class="fas fa-arrow-up"></i>
+                                        <span class="me-2" id="visitor-change">+0.0%</span>
+                                        <i class="fas fa-arrow-up" id="visitor-trend"></i>
                                     </div>
                                 </div>
                             </div>
@@ -462,9 +585,9 @@
                             <div class="card stat-card bg-success text-white">
                                 <div class="card-body">
                                     <h6>مقالات الأخبار</h6>
-                                    <h2>42</h2>
+                                    <h2 id="total-articles">0</h2>
                                     <div class="d-flex align-items-center">
-                                        <span class="me-2">+8 جديد</span>
+                                        <span class="me-2" id="article-change">+0 جديد</span>
                                         <i class="fas fa-plus-circle"></i>
                                     </div>
                                 </div>
@@ -474,9 +597,9 @@
                             <div class="card stat-card bg-info text-white">
                                 <div class="card-body">
                                     <h6>إعلانات نشطة</h6>
-                                    <h2>5</h2>
+                                    <h2 id="total-ads">0</h2>
                                     <div class="d-flex align-items-center">
-                                        <span class="me-2">إيرادات: $1,240</span>
+                                        <span class="me-2">إيرادات: $0</span>
                                     </div>
                                 </div>
                             </div>
@@ -485,9 +608,9 @@
                             <div class="card stat-card bg-warning text-dark">
                                 <div class="card-body">
                                     <h6>مشاركة المستخدمين</h6>
-                                    <h2>78.3%</h2>
+                                    <h2 id="engagement-rate">0%</h2>
                                     <div class="d-flex align-items-center">
-                                        <span class="me-2">متوسط الوقت: 4m 22s</span>
+                                        <span class="me-2">متوسط الوقت: 0m 0s</span>
                                     </div>
                                 </div>
                             </div>
@@ -601,48 +724,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="articles-list">
-                                        <tr>
-                                            <td>اختراق جديد في الحوسبة الكمية</td>
-                                            <td><img src="https://images.unsplash.com/photo-1677442135722-5f5e06a29863?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" style="max-height:40px;"></td>
-                                            <td>التكنولوجيا</td>
-                                            <td>2023-08-15</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-primary me-1">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-outline-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>أفضل طرق فقدان الوزن في 2023</td>
-                                            <td><img src="https://images.unsplash.com/photo-1493770348161-369560ae357d?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" style="max-height:40px;"></td>
-                                            <td>فقدان الوزن</td>
-                                            <td>2023-08-14</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-primary me-1">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-outline-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>توقعات الاقتصاد العالمي للعام القادم</td>
-                                            <td><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80" style="max-height:40px;"></td>
-                                            <td>الاقتصاد</td>
-                                            <td>2023-08-13</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-primary me-1">
-                                                    <i class="fas fa-edit"></i>
-                                                </button>
-                                                <button class="btn btn-sm btn-outline-danger">
-                                                    <i class="fas fa-trash"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                        <!-- سيتم تعبئتها ديناميكيًا -->
                                     </tbody>
                                 </table>
                             </div>
@@ -657,7 +739,6 @@
                             <i class="fas fa-ad me-2"></i> إدارة الإعلانات
                         </div>
                         <div class="card-body">
-                            <!-- محتوى إدارة الإعلانات -->
                             <div class="alert alert-info">
                                 <i class="fas fa-info-circle me-2"></i>
                                 قسم إدارة الإعلانات - يمكنك هنا إدارة الإعلانات التي تظهر في الموقع
@@ -673,7 +754,6 @@
                             <i class="fas fa-bolt me-2"></i> إدارة الأخبار العاجلة
                         </div>
                         <div class="card-body">
-                            <!-- محتوى إدارة الأخبار العاجلة -->
                             <div class="alert alert-info">
                                 <i class="fas fa-info-circle me-2"></i>
                                 قسم الأخبار العاجلة - يمكنك هنا تحديث شريط الأخبار العاجلة في أعلى الموقع
@@ -685,38 +765,48 @@
         </div>
     </div>
 
-    <!-- Admin Login Page -->
-    <div id="admin-login" class="page">
-        <div class="container my-5 py-5">
-            <div class="row justify-content-center">
-                <div class="col-md-6">
-                    <div class="card shadow-lg">
-                        <div class="card-header bg-dark text-white text-center py-3">
-                            <h3><i class="fas fa-lock me-2"></i>دخول المشرفين</h3>
-                        </div>
-                        <div class="card-body p-4">
-                            <form id="loginForm">
-                                <div class="mb-4">
-                                    <label class="form-label">اسم المستخدم</label>
-                                    <input type="text" class="form-control form-control-lg" required>
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label">كلمة المرور</label>
-                                    <input type="password" class="form-control form-control-lg" required>
-                                </div>
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary btn-lg">تسجيل الدخول</button>
-                                </div>
-                                <div class="text-center mt-4">
-                                    <a href="#" class="text-muted" onclick="showPage('home-page')"><i class="fas fa-arrow-right me-1"></i> العودة إلى الموقع</a>
-                                </div>
-                            </form>
-                        </div>
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h4>تريند نيوز</h4>
+                    <p>تقديم أحدث الأخبار العالمية أولاً بأول. مصدرك الموثوق للمعلومات الدقيقة وفي الوقت المناسب.</p>
+                </div>
+                <div class="col-md-2 mb-4">
+                    <h5>التصنيفات</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">عالمي</a></li>
+                        <li><a href="#" class="text-white">السياسة</a></li>
+                        <li><a href="#" class="text-white">الاقتصاد</a></li>
+                        <li><a href="#" class="text-white">التكنولوجيا</a></li>
+                        <li><a href="#" class="text-white">الصحة</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>اتصل بنا</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i> contact@trendnews.com</li>
+                        <li><i class="fas fa-phone me-2"></i> +20 123 456 7890</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> القاهرة، مصر</li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>تابعنا</h5>
+                    <div class="d-flex gap-3 fs-4">
+                        <a href="#" class="text-white"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="fab fa-linkedin"></i></a>
                     </div>
                 </div>
             </div>
+            
+            <div class="border-top pt-4 mt-4 text-center">
+                <p>&copy; 2023 تريند نيوز. جميع الحقوق محفوظة.</p>
+            </div>
         </div>
-    </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -734,6 +824,18 @@
             
             // Set up image upload
             setupImageUpload();
+            
+            // Load articles
+            loadArticles();
+            
+            // Article form
+            document.getElementById('article-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                saveArticle();
+            });
+            
+            // Load articles for home page
+            displayArticles();
         });
 
         // Pages navigation
@@ -745,6 +847,11 @@
             
             // Scroll to top
             window.scrollTo(0, 0);
+            
+            // Load articles when home page is shown
+            if (pageId === 'home-page') {
+                displayArticles();
+            }
         }
         
         // Admin sections
@@ -805,6 +912,7 @@
             const fileInput = document.getElementById('article-image-upload');
             const uploadedImage = document.getElementById('uploaded-image');
             const progressBar = document.getElementById('upload-progress');
+            const progress = progressBar.querySelector('.progress-bar');
             const uploadSuccess = document.getElementById('upload-success');
             
             // Handle drag and drop
@@ -887,6 +995,236 @@
                     reader.readAsDataURL(file);
                 }
             }, 100);
+        }
+        
+        // Save article to localStorage
+        function saveArticle() {
+            const title = document.getElementById('article-title-input').value;
+            const category = document.getElementById('article-category-input').value;
+            const content = document.getElementById('article-content-input').value;
+            const author = document.getElementById('article-author-input').value;
+            const date = document.getElementById('article-date-input').value;
+            const image = document.getElementById('uploaded-image').src || 'https://images.unsplash.com/photo-1495020689067-958852a7765e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+            
+            if (!title || !content || !author || !date) {
+                alert('يرجى ملء جميع الحقول المطلوبة');
+                return;
+            }
+            
+            const article = {
+                id: Date.now(),
+                title,
+                category,
+                image,
+                content,
+                author,
+                date
+            };
+            
+            // Save to localStorage
+            let articles = JSON.parse(localStorage.getItem('articles')) || [];
+            articles.push(article);
+            localStorage.setItem('articles', JSON.stringify(articles));
+            
+            // Reset form
+            document.getElementById('article-form').reset();
+            document.getElementById('uploaded-image').style.display = 'none';
+            document.getElementById('upload-success').style.display = 'none';
+            
+            // Update articles list
+            loadArticles();
+            
+            alert('تم حفظ المقال بنجاح!');
+        }
+        
+        // Load articles from localStorage and display in admin
+        function loadArticles() {
+            const articles = JSON.parse(localStorage.getItem('articles')) || [];
+            const articlesList = document.getElementById('articles-list');
+            
+            // Update stats
+            document.getElementById('total-articles').textContent = articles.length;
+            
+            // Clear existing list
+            articlesList.innerHTML = '';
+            
+            // Add articles to table
+            articles.forEach(article => {
+                const articleRow = document.createElement('tr');
+                articleRow.innerHTML = `
+                    <td>${article.title}</td>
+                    <td><img src="${article.image}" class="thumbnail"></td>
+                    <td>${getCategoryName(article.category)}</td>
+                    <td>${article.date}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary me-1" onclick="editArticle(${article.id})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteArticle(${article.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                articlesList.appendChild(articleRow);
+            });
+        }
+        
+        // Display articles on home page
+        function displayArticles() {
+            const articles = JSON.parse(localStorage.getItem('articles')) || [];
+            const articlesContainer = document.getElementById('articles-container');
+            const latestArticles = document.getElementById('latest-articles');
+            
+            // Clear existing articles
+            articlesContainer.innerHTML = '';
+            latestArticles.innerHTML = '';
+            
+            // Add articles to home page
+            articles.slice().reverse().forEach(article => {
+                // Add to main articles container
+                const articleCard = document.createElement('div');
+                articleCard.className = 'col-md-6 mb-4';
+                articleCard.innerHTML = `
+                    <div class="news-card card" onclick="showArticle(${article.id})">
+                        <span class="badge bg-primary category-badge">${getCategoryName(article.category)}</span>
+                        <img src="${article.image}" class="card-img-top" alt="${article.title}">
+                        <div class="card-body">
+                            <h5 class="card-title">${article.title}</h5>
+                            <p class="card-text">${article.content.substring(0, 100)}...</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">${article.author} • ${article.date}</small>
+                                <a href="#" class="btn btn-sm btn-primary" onclick="showArticle(${article.id})">اقرأ المزيد</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                articlesContainer.appendChild(articleCard);
+                
+                // Add to latest articles sidebar
+                if (articlesContainer.children.length < 5) {
+                    const latestArticle = document.createElement('a');
+                    latestArticle.className = 'list-group-item list-group-item-action';
+                    latestArticle.href = '#';
+                    latestArticle.innerHTML = article.title;
+                    latestArticle.onclick = () => showArticle(article.id);
+                    latestArticles.appendChild(latestArticle);
+                }
+            });
+            
+            // Show message if no articles
+            if (articles.length === 0) {
+                articlesContainer.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="fas fa-newspaper fa-3x mb-3 text-muted"></i>
+                        <h3>لا توجد مقالات بعد</h3>
+                        <p class="text-muted">اضغط على زر لوحة التحكم لإضافة مقالات جديدة</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Show article page
+        function showArticle(id) {
+            const articles = JSON.parse(localStorage.getItem('articles')) || [];
+            const article = articles.find(a => a.id == id);
+            
+            if (article) {
+                document.getElementById('article-title').textContent = article.title;
+                document.getElementById('article-content').innerHTML = article.content;
+                document.getElementById('article-author').textContent = `بواسطة: ${article.author}`;
+                document.getElementById('article-date').textContent = article.date;
+                document.getElementById('article-category').textContent = getCategoryName(article.category);
+                
+                // Set article image
+                const imageContainer = document.getElementById('article-image-container');
+                imageContainer.innerHTML = `<img src="${article.image}" class="img-fluid rounded">`;
+                
+                // Show article page
+                showPage('article-page');
+            } else {
+                alert('المقال غير موجود');
+            }
+        }
+        
+        // Delete article
+        function deleteArticle(id) {
+            if (confirm('هل أنت متأكد من حذف هذا المقال؟')) {
+                let articles = JSON.parse(localStorage.getItem('articles')) || [];
+                articles = articles.filter(article => article.id != id);
+                localStorage.setItem('articles', JSON.stringify(articles));
+                loadArticles();
+                displayArticles();
+                alert('تم حذف المقال بنجاح!');
+            }
+        }
+        
+        // Edit article (placeholder)
+        function editArticle(id) {
+            alert('ميزة التعديل قيد التطوير. سيتم تفعيلها قريبًا!');
+        }
+        
+        // Get category name
+        function getCategoryName(categoryId) {
+            const categories = {
+                'world': 'أخبار عالمية',
+                'politics': 'السياسة',
+                'economy': 'الاقتصاد',
+                'technology': 'التكنولوجيا',
+                'health': 'الصحة',
+                'weight-loss': 'فقدان الوزن',
+                'sports': 'الرياضة',
+                'food': 'الطعام',
+                'entertainment': 'الترفيه',
+                'environment': 'البيئة',
+                'education': 'التعليم',
+                'culture': 'الثقافة'
+            };
+            return categories[categoryId] || categoryId;
+        }
+        
+        // Show articles by category
+        function showCategory(category) {
+            const articles = JSON.parse(localStorage.getItem('articles')) || [];
+            const filteredArticles = articles.filter(article => article.category === category);
+            const articlesContainer = document.getElementById('articles-container');
+            
+            // Clear existing articles
+            articlesContainer.innerHTML = '';
+            
+            // Add filtered articles
+            filteredArticles.slice().reverse().forEach(article => {
+                const articleCard = document.createElement('div');
+                articleCard.className = 'col-md-6 mb-4';
+                articleCard.innerHTML = `
+                    <div class="news-card card" onclick="showArticle(${article.id})">
+                        <span class="badge bg-primary category-badge">${getCategoryName(article.category)}</span>
+                        <img src="${article.image}" class="card-img-top" alt="${article.title}">
+                        <div class="card-body">
+                            <h5 class="card-title">${article.title}</h5>
+                            <p class="card-text">${article.content.substring(0, 100)}...</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted">${article.author} • ${article.date}</small>
+                                <a href="#" class="btn btn-sm btn-primary" onclick="showArticle(${article.id})">اقرأ المزيد</a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                articlesContainer.appendChild(articleCard);
+            });
+            
+            // Show message if no articles
+            if (filteredArticles.length === 0) {
+                articlesContainer.innerHTML = `
+                    <div class="col-12 text-center py-5">
+                        <i class="fas fa-newspaper fa-3x mb-3 text-muted"></i>
+                        <h3>لا توجد مقالات في هذا التصنيف</h3>
+                        <p class="text-muted">اضغط على زر لوحة التحكم لإضافة مقالات جديدة</p>
+                    </div>
+                `;
+            }
+            
+            // Show home page
+            showPage('home-page');
         }
     </script>
 </body>
