@@ -1,33 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TrendNews - Global Trending News</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>تريند نيوز - الأخبار العالمية أولاً بأول</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --primary: #0d6efd;
             --secondary: #6c757d;
             --dark: #212529;
             --light: #f8f9fa;
+            --accent: #ff6b35;
+            --success: #198754;
+        }
+        
+        * {
+            font-family: 'Tajawal', sans-serif;
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f5f7fa;
-        }
-        
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.8rem;
+            padding-top: 60px;
         }
         
         .breaking-news {
             background: linear-gradient(90deg, #ff416c, #ff4b2b);
             color: white;
             padding: 8px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1030;
+        }
+        
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .news-card {
@@ -36,6 +46,7 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border: none;
         }
         
         .news-card:hover {
@@ -51,7 +62,7 @@
         .category-badge {
             position: absolute;
             top: 15px;
-            left: 15px;
+            right: 15px;
             z-index: 2;
         }
         
@@ -59,6 +70,7 @@
             background: linear-gradient(rgba(13, 110, 253, 0.03), rgba(13, 110, 253, 0.03));
             border-radius: 15px;
             padding: 25px;
+            margin-bottom: 30px;
         }
         
         .ad-container {
@@ -73,6 +85,111 @@
         footer {
             background: linear-gradient(45deg, #1e3c72, #2a5298);
             color: white;
+            padding: 40px 0 20px;
+        }
+        
+        .page {
+            display: none;
+        }
+        
+        .active-page {
+            display: block;
+        }
+        
+        .admin-container {
+            background-color: #f5f7fa;
+            min-height: 100vh;
+        }
+        
+        .sidebar {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            min-height: 100vh;
+            position: fixed;
+            width: 250px;
+        }
+        
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        
+        .sidebar .nav-link:hover,
+        .sidebar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+        
+        .stat-card {
+            border-radius: 10px;
+            transition: transform 0.3s;
+            overflow: hidden;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .article-content {
+            line-height: 1.8;
+            font-size: 1.1rem;
+        }
+        
+        .article-content img {
+            max-width: 100%;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        .ai-generated {
+            position: relative;
+            border-left: 3px solid var(--accent);
+            padding-right: 15px;
+        }
+        
+        .ai-generated::before {
+            content: "مُولّد بالذكاء الاصطناعي";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--accent);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .visitor-counter {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-align: center;
+            padding: 10px;
+            background: rgba(13, 110, 253, 0.1);
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .visitor-label {
+            font-size: 0.9rem;
+            color: var(--secondary);
+            text-align: center;
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                position: relative;
+                width: 100%;
+                min-height: auto;
+            }
+            
+            .admin-container {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -81,144 +198,481 @@
     <div class="breaking-news">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
-                <span class="fw-bold"><i class="fas fa-bolt me-2"></i>BREAKING:</span>
-                <marquee behavior="scroll" direction="left" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();">
-                    Russia-Ukraine peace talks show progress • NASA discovers new Earth-like planet • Global markets surge as inflation fears ease
+                <span class="fw-bold"><i class="fas fa-bolt me-2"></i>أخبار عاجلة:</span>
+                <marquee behavior="scroll" direction="right" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();">
+                    تقدم في محادثات السلام بين روسيا وأوكرانيا • ناسا تكتشف كوكبًا جديدًا يشبه الأرض • ارتفاع الأسواق العالمية مع تراجع مخاوف التضخم
                 </marquee>
             </div>
         </div>
     </div>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top" style="top: 38px;">
         <div class="container">
-            <a class="navbar-brand" href="#">TRENDNEWS</a>
+            <a class="navbar-brand" href="#" onclick="showPage('home-page')">تريند نيوز</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">World</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Politics</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Business</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Technology</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Health</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#" onclick="showPage('home-page')">الرئيسية</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showCategory('world')">عالمي</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showCategory('politics')">السياسة</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showCategory('business')">اقتصاد</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showCategory('technology')">تكنولوجيا</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" onclick="showCategory('health')">صحة</a></li>
                 </ul>
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search news...">
-                    <button class="btn btn-outline-light" type="submit">Search</button>
+                    <input class="form-control me-2" type="search" placeholder="ابحث في الأخبار...">
+                    <button class="btn btn-outline-light" type="submit">بحث</button>
                 </form>
-                <a href="admin.html" class="btn btn-warning ms-3"><i class="fas fa-lock me-1"></i> Admin</a>
+                <a href="#" class="btn btn-warning ms-3" onclick="showPage('admin-login')"><i class="fas fa-lock me-1"></i> لوحة التحكم</a>
             </div>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container my-5">
-        <div class="row">
-            <!-- Featured News -->
-            <div class="col-lg-8">
-                <div class="mb-5">
-                    <h2 class="mb-4 border-bottom pb-2">Top Stories</h2>
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <div class="news-card card">
-                                <span class="badge bg-danger category-badge">Politics</span>
-                                <img src="https://picsum.photos/600/400?random=1" class="card-img-top" alt="News Image">
-                                <div class="card-body">
-                                    <h5 class="card-title">Global Summit Addresses Climate Change Crisis</h5>
-                                    <p class="card-text">World leaders gather in emergency session to discuss new measures against rising global temperatures.</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted">Reuters • 2 hours ago</small>
-                                        <a href="#" class="btn btn-sm btn-primary">Read More</a>
+    <!-- Home Page -->
+    <div id="home-page" class="page active-page">
+        <div class="container my-5">
+            <div class="row">
+                <!-- Featured News -->
+                <div class="col-lg-8">
+                    <div class="mb-5">
+                        <h2 class="mb-4 border-bottom pb-2">أهم العناوين</h2>
+                        <div class="row">
+                            <div class="col-md-6 mb-4">
+                                <div class="news-card card">
+                                    <span class="badge bg-danger category-badge">السياسة</span>
+                                    <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="News Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title">قمة عالمية تعالج أزمة التغير المناخي</h5>
+                                        <p class="card-text">تجمع قادة العالم في جلسة طارئة لمناقشة إجراءات جديدة لمواجهة ارتفاع درجات الحرارة العالمية.</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small class="text-muted">رويترز • منذ ساعتين</small>
+                                            <a href="#" class="btn btn-sm btn-primary" onclick="showArticle(1)">اقرأ المزيد</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="news-card card">
-                                <span class="badge bg-success category-badge">Technology</span>
-                                <img src="https://picsum.photos/600/400?random=2" class="card-img-top" alt="News Image">
-                                <div class="card-body">
-                                    <h5 class="card-title">Breakthrough in Quantum Computing Announced</h5>
-                                    <p class="card-text">Scientists achieve quantum supremacy milestone that could revolutionize computing as we know it.</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <small class="text-muted">TechCrunch • 4 hours ago</small>
-                                        <a href="#" class="btn btn-sm btn-primary">Read More</a>
+                            <div class="col-md-6 mb-4">
+                                <div class="news-card card">
+                                    <span class="badge bg-success category-badge">التكنولوجيا</span>
+                                    <img src="https://images.unsplash.com/photo-1677442135722-5f5e06a29863?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="News Image">
+                                    <div class="card-body">
+                                        <h5 class="card-title">اختراق جديد في الحوسبة الكمية</h5>
+                                        <p class="card-text">علماء يحققون معلمًا جديدًا في التفوق الكمي قد يحدث ثورة في عالم الحوسبة كما نعرفه.</p>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <small class="text-muted">تيك كرانش • منذ 4 ساعات</small>
+                                            <a href="#" class="btn btn-sm btn-primary" onclick="showArticle(2)">اقرأ المزيد</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Trending News -->
-                <div class="trending-section mb-5">
-                    <h2 class="mb-4 border-bottom pb-2">Trending Now</h2>
-                    <div class="row" id="trending-news">
-                        <!-- News loaded dynamically by JavaScript -->
+                    <!-- Trending News -->
+                    <div class="trending-section">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="mb-0"><i class="fas fa-fire me-2"></i>الأكثر انتشارًا</h2>
+                            <span class="visitor-counter">24,581</span>
+                        </div>
+                        <div class="row" id="trending-news">
+                            <!-- News loaded dynamically by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- AI Articles -->
+                    <div class="mb-5">
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h2 class="mb-0"><i class="fas fa-robot me-3"></i>مقالات الذكاء الاصطناعي والربح من الإنترنت</h2>
+                        </div>
+                        <div class="row" id="ai-articles">
+                            <!-- AI articles loaded dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Ad Space -->
+                    <div class="ad-container mb-5">
+                        <h4>مساحة إعلانية</h4>
+                        <img src="https://via.placeholder.com/728x90?text=مساحة+إعلانية+مميزة" alt="Advertisement" class="img-fluid">
+                        <p class="mt-2 mb-0">يمكن أن يكون إعلانك هنا</p>
                     </div>
                 </div>
 
-                <!-- Ad Space -->
-                <div class="ad-container mb-5">
-                    <h4>Advertisement</h4>
-                    <img src="https://via.placeholder.com/728x90?text=Premium+Ad+Space" alt="Advertisement" class="img-fluid">
-                    <p class="mt-2 mb-0">Your ad could be here</p>
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Visitor Counter -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-info text-white">
+                            <i class="fas fa-users me-2"></i> إحصائيات الزوار
+                        </div>
+                        <div class="card-body text-center">
+                            <div class="display-4">24,581</div>
+                            <p class="text-muted">زائر اليوم</p>
+                            <div class="progress mb-2">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 58%">58%</div>
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 42%">42%</div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <span>زائرون جدد</span>
+                                </div>
+                                <div>
+                                    <span>زائرون عائدون</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Top Categories -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-dark text-white">
+                            <i class="fas fa-tags me-2"></i> التصنيفات
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge bg-primary p-2">أخبار عالمية</span>
+                                <span class="badge bg-secondary p-2">السياسة</span>
+                                <span class="badge bg-success p-2">التكنولوجيا</span>
+                                <span class="badge bg-danger p-2">الصحة</span>
+                                <span class="badge bg-warning p-2">الاقتصاد</span>
+                                <span class="badge bg-info p-2">الترفيه</span>
+                                <span class="badge bg-dark p-2">الرياضة</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Latest AI Articles -->
+                    <div class="card mb-4">
+                        <div class="card-header bg-success text-white">
+                            <i class="fas fa-bolt me-2"></i> أحدث مقالات الذكاء الاصطناعي
+                        </div>
+                        <div class="list-group list-group-flush">
+                            <a href="#" class="list-group-item list-group-item-action" onclick="showArticle(3)">كيف تربح 1000 دولار شهريًا باستخدام الذكاء الاصطناعي</a>
+                            <a href="#" class="list-group-item list-group-item-action" onclick="showArticle(4)">أفضل 5 أدوات ذكاء اصطناعي لرواد الأعمال</a>
+                            <a href="#" class="list-group-item list-group-item-action" onclick="showArticle(5)">استراتيجيات التسويق بالذكاء الاصطناعي في 2023</a>
+                            <a href="#" class="list-group-item list-group-item-action" onclick="showArticle(6)">مستقبل العملات الرقمية في ظل الذكاء الاصطناعي</a>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+    </div>
 
+    <!-- Article Page -->
+    <div id="article-page" class="page">
+        <div class="container my-5">
+            <button class="btn btn-outline-primary mb-4" onclick="showPage('home-page')">
+                <i class="fas fa-arrow-right me-2"></i> العودة للأخبار
+            </button>
+            
+            <article class="bg-white p-4 rounded shadow">
+                <h1 id="article-title"></h1>
+                <div class="d-flex justify-content-between border-bottom pb-3 mb-4">
+                    <span id="article-author" class="text-muted"></span>
+                    <span id="article-date" class="text-muted"></span>
+                </div>
+                <div id="article-content" class="article-content"></div>
+                
+                <div class="mt-5 pt-4 border-top">
+                    <h4><i class="fas fa-tags me-2"></i> التصنيف: <span id="article-category" class="badge bg-primary"></span></h4>
+                </div>
+            </article>
+            
+            <div class="mt-5">
+                <h4 class="mb-4">مقالات ذات صلة</h4>
+                <div class="row" id="related-articles">
+                    <!-- سيتم تعبئتها ديناميكيًا -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Page -->
+    <div id="admin-login" class="page">
+        <div class="container my-5 py-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card shadow-lg">
+                        <div class="card-header bg-dark text-white text-center py-3">
+                            <h3><i class="fas fa-lock me-2"></i>دخول المشرفين</h3>
+                        </div>
+                        <div class="card-body p-4">
+                            <form id="loginForm">
+                                <div class="mb-4">
+                                    <label class="form-label">اسم المستخدم</label>
+                                    <input type="text" class="form-control form-control-lg" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">كلمة المرور</label>
+                                    <input type="password" class="form-control form-control-lg" required>
+                                </div>
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">تسجيل الدخول</button>
+                                </div>
+                                <div class="text-center mt-4">
+                                    <a href="#" class="text-muted" onclick="showPage('home-page')"><i class="fas fa-arrow-right me-1"></i> العودة إلى الموقع</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="page">
+        <div class="admin-container d-flex">
             <!-- Sidebar -->
-            <div class="col-lg-4">
-                <!-- Live News Ticker -->
-                <div class="card mb-4">
-                    <div class="card-header bg-primary text-white">
-                        <i class="fas fa-bolt me-2"></i>Live Updates
-                    </div>
-                    <div class="card-body p-0">
-                        <div class="list-group list-group-flush" id="live-updates">
-                            <!-- Live updates loaded dynamically -->
-                        </div>
+            <div class="sidebar p-3">
+                <h4 class="text-center my-4">لوحة تحكم تريند نيوز</h4>
+                <hr class="bg-light">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="showAdminSection('dashboard')">
+                            <i class="fas fa-tachometer-alt me-2"></i> لوحة التحكم
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showAdminSection('manage-news')">
+                            <i class="fas fa-newspaper me-2"></i> إدارة المقالات
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showAdminSection('manage-ads')">
+                            <i class="fas fa-ad me-2"></i> إدارة الإعلانات
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showAdminSection('analytics')">
+                            <i class="fas fa-chart-bar me-2"></i> الإحصائيات
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showAdminSection('ai-articles')">
+                            <i class="fas fa-robot me-2"></i> توليد مقالات بالذكاء الاصطناعي
+                        </a>
+                    </li>
+                    <li class="nav-item mt-4">
+                        <a class="nav-link" href="#" onclick="showPage('home-page')">
+                            <i class="fas fa-arrow-right me-2"></i> العودة للموقع
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="flex-grow-1 p-4" style="margin-right: 250px;">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 id="admin-section-title">لوحة التحكم</h3>
+                    <div>
+                        <span class="me-3"><i class="fas fa-bell"></i></span>
+                        <span class="me-3"><i class="fas fa-user-circle"></i> المشرف</span>
+                        <button class="btn btn-sm btn-outline-danger" onclick="showPage('home-page')">تسجيل الخروج</button>
                     </div>
                 </div>
 
-                <!-- Top Categories -->
-                <div class="card mb-4">
-                    <div class="card-header bg-dark text-white">
-                        <i class="fas fa-tags me-2"></i>Categories
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex flex-wrap gap-2">
-                            <span class="badge bg-primary p-2">World News</span>
-                            <span class="badge bg-secondary p-2">Politics</span>
-                            <span class="badge bg-success p-2">Technology</span>
-                            <span class="badge bg-danger p-2">Health</span>
-                            <span class="badge bg-warning p-2">Business</span>
-                            <span class="badge bg-info p-2">Entertainment</span>
-                            <span class="badge bg-dark p-2">Sports</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Visitor Stats -->
-                <div class="card mb-4">
-                    <div class="card-header bg-info text-white">
-                        <i class="fas fa-chart-line me-2"></i>Visitor Statistics
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center mb-3">
-                            <h2 class="display-4">24,581</h2>
-                            <p class="text-muted">Visitors Today</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <div>
-                                <h5>58%</h5>
-                                <p>New Visitors</p>
+                <!-- Dashboard Section -->
+                <div id="dashboard-section" class="admin-section">
+                    <div class="row mb-4">
+                        <div class="col-md-3 mb-3">
+                            <div class="card stat-card bg-primary text-white">
+                                <div class="card-body">
+                                    <h6>إجمالي الزوار</h6>
+                                    <h2>245,812</h2>
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-2">+12.5%</span>
+                                        <i class="fas fa-arrow-up"></i>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <h5>42%</h5>
-                                <p>Returning</p>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card stat-card bg-success text-white">
+                                <div class="card-body">
+                                    <h6>مقالات الأخبار</h6>
+                                    <h2>1,842</h2>
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-2">+8 جديد</span>
+                                        <i class="fas fa-plus-circle"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card stat-card bg-info text-white">
+                                <div class="card-body">
+                                    <h6>إعلانات نشطة</h6>
+                                    <h2>24</h2>
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-2">إيرادات: $12,480</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="card stat-card bg-warning text-dark">
+                                <div class="card-body">
+                                    <h6>مشاركة المستخدمين</h6>
+                                    <h2>78.3%</h2>
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-2">متوسط الوقت: 4m 22s</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-header bg-info text-white">
+                                    <i class="fas fa-chart-line me-2"></i> حركة الزوار
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="trafficChart" height="250"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <div class="card">
+                                <div class="card-header bg-success text-white">
+                                    <i class="fas fa-globe-africa me-2"></i> توزيع الزوار الجغرافي
+                                </div>
+                                <div class="card-body">
+                                    <canvas id="geoChart" height="250"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manage News Section -->
+                <div id="manage-news-section" class="admin-section" style="display:none;">
+                    <div class="card mb-4">
+                        <div class="card-header bg-dark text-white">
+                            <i class="fas fa-edit me-2"></i> إدارة المقالات
+                        </div>
+                        <div class="card-body">
+                            <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addArticleModal">
+                                <i class="fas fa-plus me-2"></i> إضافة مقال جديد
+                            </button>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>العنوان</th>
+                                            <th>التصنيف</th>
+                                            <th>تاريخ النشر</th>
+                                            <th>الحالة</th>
+                                            <th>الإجراءات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>تقدم في محادثات السلام العالمية</td>
+                                            <td>السياسة</td>
+                                            <td>2023-08-15</td>
+                                            <td><span class="badge bg-success">نشط</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>اختراق جديد في الذكاء الاصطناعي</td>
+                                            <td>التكنولوجيا</td>
+                                            <td>2023-08-14</td>
+                                            <td><span class="badge bg-success">نشط</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>ارتفاع أسواق المال العالمية</td>
+                                            <td>الاقتصاد</td>
+                                            <td>2023-08-13</td>
+                                            <td><span class="badge bg-success">نشط</span></td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Manage Ads Section -->
+                <div id="manage-ads-section" class="admin-section" style="display:none;">
+                    <div class="card mb-4">
+                        <div class="card-header bg-dark text-white">
+                            <i class="fas fa-ad me-2"></i> إدارة الإعلانات
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3">
+                                <h5>حملات الإعلان الحالية</h5>
+                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdModal"><i class="fas fa-plus me-2"></i> إعلان جديد</button>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>عنوان الإعلان</th>
+                                            <th>الموقع</th>
+                                            <th>الحالة</th>
+                                            <th>الظهورات</th>
+                                            <th>النقرات</th>
+                                            <th>تاريخ البدء</th>
+                                            <th>الإجراءات</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>عرض خاص على الهواتف الذكية</td>
+                                            <td>أعلى الصفحة</td>
+                                            <td><span class="badge bg-success">نشط</span></td>
+                                            <td>124,582</td>
+                                            <td>3,842</td>
+                                            <td>2023-06-15</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>خدمات الاستثمار العالمية</td>
+                                            <td>الشريط الجانبي</td>
+                                            <td><span class="badge bg-success">نشط</span></td>
+                                            <td>98,451</td>
+                                            <td>2,156</td>
+                                            <td>2023-07-01</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>عروض السفر إلى مصر</td>
+                                            <td>منتصف المقال</td>
+                                            <td><span class="badge bg-warning">متوقف</span></td>
+                                            <td>56,782</td>
+                                            <td>1,487</td>
+                                            <td>2023-05-22</td>
+                                            <td>
+                                                <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
+                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -228,33 +682,33 @@
     </div>
 
     <!-- Footer -->
-    <footer class="py-5">
+    <footer>
         <div class="container">
             <div class="row">
                 <div class="col-md-4 mb-4">
-                    <h4>TRENDNEWS</h4>
-                    <p>Delivering the latest trending news from around the globe 24/7. Your trusted source for accurate and timely information.</p>
+                    <h4>تريند نيوز</h4>
+                    <p>تقديم أحدث الأخبار العالمية أولاً بأول. مصدرك الموثوق للمعلومات الدقيقة وفي الوقت المناسب.</p>
                 </div>
                 <div class="col-md-2 mb-4">
-                    <h5>Categories</h5>
+                    <h5>التصنيفات</h5>
                     <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">World</a></li>
-                        <li><a href="#" class="text-white">Politics</a></li>
-                        <li><a href="#" class="text-white">Business</a></li>
-                        <li><a href="#" class="text-white">Technology</a></li>
-                        <li><a href="#" class="text-white">Health</a></li>
+                        <li><a href="#" class="text-white">عالمي</a></li>
+                        <li><a href="#" class="text-white">السياسة</a></li>
+                        <li><a href="#" class="text-white">الاقتصاد</a></li>
+                        <li><a href="#" class="text-white">التكنولوجيا</a></li>
+                        <li><a href="#" class="text-white">الصحة</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3 mb-4">
-                    <h5>Contact Us</h5>
+                    <h5>اتصل بنا</h5>
                     <ul class="list-unstyled">
                         <li><i class="fas fa-envelope me-2"></i> contact@trendnews.com</li>
                         <li><i class="fas fa-phone me-2"></i> +20 123 456 7890</li>
-                        <li><i class="fas fa-map-marker-alt me-2"></i> Cairo, Egypt</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> القاهرة، مصر</li>
                     </ul>
                 </div>
                 <div class="col-md-3 mb-4">
-                    <h5>Follow Us</h5>
+                    <h5>تابعنا</h5>
                     <div class="d-flex gap-3 fs-4">
                         <a href="#" class="text-white"><i class="fab fa-facebook"></i></a>
                         <a href="#" class="text-white"><i class="fab fa-twitter"></i></a>
@@ -264,62 +718,303 @@
                 </div>
             </div>
             <div class="border-top pt-4 mt-4 text-center">
-                <p>&copy; 2023 TRENDNEWS. All rights reserved.</p>
+                <p>&copy; 2023 تريند نيوز. جميع الحقوق محفوظة.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Modals -->
+    <div class="modal fade" id="addArticleModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">إضافة مقال جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">عنوان المقال</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">المحتوى</label>
+                            <textarea class="form-control" rows="8" required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">التصنيف</label>
+                                <select class="form-select" required>
+                                    <option value="world">عالمي</option>
+                                    <option value="politics">السياسة</option>
+                                    <option value="business">الاقتصاد</option>
+                                    <option value="technology">التكنولوجيا</option>
+                                    <option value="health">الصحة</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">صورة المقال</label>
+                                <input type="file" class="form-control" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="featured">
+                            <label class="form-check-label" for="featured">مقال مميز</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-primary">حفظ المقال</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addAdModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">إضافة إعلان جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">عنوان الإعلان</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">كود الإعلان</label>
+                            <textarea class="form-control" rows="4" required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">الموقع</label>
+                            <select class="form-select" required>
+                                <option value="top">أعلى الصفحة</option>
+                                <option value="sidebar">الشريط الجانبي</option>
+                                <option value="middle">منتصف المقال</option>
+                                <option value="bottom">أسفل الصفحة</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">تاريخ البدء</label>
+                                <input type="date" class="form-control" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">تاريخ الانتهاء</label>
+                                <input type="date" class="form-control">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
+                    <button type="button" class="btn btn-primary">حفظ الإعلان</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Simulated news data (in real implementation, this would come from an API)
-        const trendingNews = [
-            {
-                title: "Stock Markets Reach All-Time High",
-                summary: "Global markets surge as economic recovery exceeds expectations.",
-                category: "Business",
-                source: "Bloomberg",
-                time: "1 hour ago"
-            },
-            {
-                title: "New Vaccine Shows 95% Efficacy Against Variants",
-                summary: "Pharmaceutical company announces breakthrough in COVID-19 research.",
-                category: "Health",
-                source: "WHO",
-                time: "3 hours ago"
-            },
-            {
-                title: "Major Film Festival Winners Announced",
-                summary: "Independent films dominate this year's international festival awards.",
-                category: "Entertainment",
-                source: "Variety",
-                time: "5 hours ago"
-            },
-            {
-                title: "Renewable Energy Investments Double",
-                summary: "Global shift to green energy accelerates as investments reach record levels.",
-                category: "Environment",
-                source: "Green Energy Journal",
-                time: "7 hours ago"
-            }
-        ];
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load news
+            loadTrendingNews();
+            loadAIArticles();
+            
+            // Initialize charts
+            initCharts();
+            
+            // Initialize visitor counter
+            updateVisitorCounter();
+            
+            // Simulate auto-generated articles
+            simulateAutoArticles();
+            
+            // Login form
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showPage('admin-dashboard');
+            });
+        });
 
-        const liveUpdates = [
-            "UN Security Council to hold emergency meeting on regional conflict",
-            "Tech giant announces revolutionary new smartphone with holographic display",
-            "Olympic committee reveals host city for 2030 Winter Games",
-            "Central banks announce coordinated interest rate decision",
-            "Breakthrough in fusion energy research announced"
-        ];
-
-        // Function to load trending news
+        // Pages navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active-page');
+            });
+            document.getElementById(pageId).classList.add('active-page');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+        
+        // Admin sections
+        function showAdminSection(sectionId) {
+            document.querySelectorAll('.admin-section').forEach(section => {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId + '-section').style.display = 'block';
+            
+            // Update title
+            const titles = {
+                'dashboard': 'لوحة التحكم',
+                'manage-news': 'إدارة المقالات',
+                'manage-ads': 'إدارة الإعلانات',
+                'analytics': 'الإحصائيات',
+                'ai-articles': 'توليد مقالات بالذكاء الاصطناعي'
+            };
+            document.getElementById('admin-section-title').textContent = titles[sectionId];
+        }
+        
+        // Show article
+        function showArticle(id) {
+            const articles = {
+                1: {
+                    title: "قمة عالمية تعالج أزمة التغير المناخي",
+                    content: `
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid mb-4 rounded">
+                        <p>اجتمع قادة العالم اليوم في قمة طارئة في جنيف لمعالجة الأزمة المتزايدة للتغير المناخي. مع استمرار ارتفاع درجات الحرارة العالمية وزيادة وتيرة الكوارث الطبيعية، أصبحت الحاجة إلى إجراءات عاجلة أكثر إلحاحًا من أي وقت مضى.</p>
+                        
+                        <h3 class="mt-5">التحديات الرئيسية</h3>
+                        <p>واجهت القمة تحديات كبيرة، من أهمها:</p>
+                        <ul>
+                            <li>ارتفاع مستوى سطح البحر الذي يهدد المدن الساحلية</li>
+                            <li>زيادة موجات الحر والجفاف التي تؤثر على الإنتاج الزراعي</li>
+                            <li>تدهور التنوع البيولوجي واختفاء الأنواع النباتية والحيوانية</li>
+                            <li>نقص الموارد المائية في مناطق عديدة من العالم</li>
+                        </ul>
+                        
+                        <h3 class="mt-5">الحلول المقترحة</h3>
+                        <p>اقترح المشاركون في القمة عدة حلول جوهرية:</p>
+                        <ol>
+                            <li>الاستثمار في مصادر الطاقة المتجددة</li>
+                            <li>تحسين كفاءة استخدام الطاقة في الصناعات</li>
+                            <li>دعم الابتكارات التكنولوجية لامتصاص الكربون</li>
+                            <li>حماية الغابات والموائل الطبيعية</li>
+                        </ol>
+                        
+                        <p>اختتمت القمة بتعهد الدول المشاركة بتخفيض انبعاثات الكربون بنسبة 50% بحلول عام 2030، والوصول إلى الحياد الكربوني بحلول عام 2050.</p>
+                    `,
+                    date: "15 أغسطس 2023",
+                    author: "أحمد محمود",
+                    category: "السياسة"
+                },
+                2: {
+                    title: "اختراق جديد في الحوسبة الكمية",
+                    content: `
+                        <img src="https://images.unsplash.com/photo-1677442135722-5f5e06a29863?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid mb-4 rounded">
+                        <p>أعلن فريق من العلماء في معهد ماساتشوستس للتكنولوجيا عن تحقيق اختراق كبير في مجال الحوسبة الكمية، قد يؤدي إلى ثورة في قدرات الحوسبة كما نعرفها.</p>
+                        
+                        <h3 class="mt-5">التفاصيل التقنية</h3>
+                        <p>تمكن العلماء من تحقيق "التفوق الكمي" باستخدام معالج كمي جديد يتكون من 72 كيوبت (بت كمي)، متفوقًا بذلك على أنظمة الحوسبة التقليدية في حل مشكلات معقدة كانت تعتبر مستحيلة سابقًا.</p>
+                        
+                        <h3 class="mt-5">التطبيقات المستقبلية</h3>
+                        <p>يمكن لهذا الاختراق أن يؤدي إلى تطورات كبيرة في عدة مجالات:</p>
+                        <ul>
+                            <li>تطوير أدوية جديدة من خلال محاكاة الجزيئات المعقدة</li>
+                            <li>تحسين أنظمة الذكاء الاصطناعي والتعلم الآلي</li>
+                            <li>تطوير مواد جديدة بخصائص فريدة</li>
+                            <li>حل مشكلات التحسين المعقدة في اللوجستيات والتمويل</li>
+                        </ul>
+                        
+                        <p>قالت الدكتورة سارة خالد، رئيسة الفريق البحثي: "هذا الإنجاز يمثل نقلة نوعية في قدرتنا على حل المشكلات التي كانت تتجاوز قدرات أجهزة الكمبيوتر التقليدية".</p>
+                    `,
+                    date: "14 أغسطس 2023",
+                    author: "مريم عبد الله",
+                    category: "التكنولوجيا"
+                },
+                3: {
+                    title: "كيف تربح 1000 دولار شهريًا باستخدام الذكاء الاصطناعي",
+                    content: `
+                        <div class="ai-generated">
+                            <img src="https://images.unsplash.com/photo-1679154073391-90b3a5f7b5c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" class="img-fluid mb-4 rounded">
+                            <p>في عالم يتطور بسرعة، أصبح الذكاء الاصطناعي أداة قوية لرواد الأعمال والمستقلين. إليك 5 طرق مجربة لربح 1000 دولار شهريًا باستخدام أدوات الذكاء الاصطناعي:</p>
+                            
+                            <h3 class="mt-5">1. إنشاء محتوى آلي</h3>
+                            <p>استخدم أدوات مثل ChatGPT وJasper لإنشاء محتوى لمدونات، منشورات على وسائل التواصل الاجتماعي، ونصوص فيديو. يمكنك تقديم هذه الخدمة على منصات العمل الحر مثل خمسات ومستقل.</p>
+                            
+                            <h3 class="mt-5">2. تطوير روبوتات الدردشة</h3>
+                            <p>باستخدام أدوات مثل ManyChat وChatfuel، يمكنك تطوير روبوتات دردشة للشركات الصغيرة لخدمة العملاء وتقديم الدعم الأساسي.</p>
+                            
+                            <h3 class="mt-5">3. تصميم جرافيك بالذكاء الاصطناعي</h3>
+                            <p>أدوات مثل Midjourney وDALL-E تمكنك من إنشاء صور احترافية بكتابة وصف بسيط. يمكنك بيع هذه التصاميم على منصات مثل Shutterstock وAdobe Stock.</p>
+                            
+                            <h3 class="mt-5">4. تحليل بيانات الأعمال</h3>
+                            <p>استخدم أدوات الذكاء الاصطناعي لتحليل بيانات العملاء وتقديم تقارير ربحية للشركات الصغيرة والمتوسطة.</p>
+                            
+                            <h3 class="mt-5">5. تطوير تطبيقات ذكية صغيرة</h3>
+                            <p>باستخدام منصات مثل Bubble وAdalo، يمكنك تطوير تطبيقات ويب وموبايل ذكية دون الحاجة لخبرة برمجية متقدمة.</p>
+                            
+                            <p>تبدأ معظم هذه المشاريع بتكاليف منخفضة، وتزداد أرباحها مع اكتساب الخبرة وبناء قاعدة عملاء. المفتاح هو التركيز على مجال واحد وإتقانه قبل التوسع إلى مجالات أخرى.</p>
+                        </div>
+                    `,
+                    date: "13 أغسطس 2023",
+                    author: "نظام التوليد التلقائي",
+                    category: "التكنولوجيا"
+                }
+            };
+            
+            const article = articles[id] || articles[1];
+            document.getElementById('article-title').textContent = article.title;
+            document.getElementById('article-content').innerHTML = article.content;
+            document.getElementById('article-date').textContent = article.date;
+            document.getElementById('article-author').textContent = "بواسطة: " + article.author;
+            document.getElementById('article-category').textContent = article.category;
+            
+            showPage('article-page');
+        }
+        
+        // Show category
+        function showCategory(category) {
+            // In a real app, this would filter articles
+            alert("عرض أخبار في تصنيف: " + category);
+            showPage('home-page');
+        }
+        
+        // Load trending news
         function loadTrendingNews() {
+            const trendingNews = [
+                {
+                    title: "الأسواق العالمية تسجل أعلى مستوياتها على الإطلاق",
+                    summary: "ارتفاع الأسواق العالمية مع تجاوز التعافي الاقتصادي التوقعات.",
+                    category: "الاقتصاد",
+                    source: "بلومبرغ",
+                    time: "منذ ساعة"
+                },
+                {
+                    title: "لقاح جديد يظهر فعالية بنسبة 95% ضد المتحورات",
+                    summary: "شركة أدوية تعلن عن اختراق في أبحاث كوفيد-19.",
+                    category: "الصحة",
+                    source: "منظمة الصحة العالمية",
+                    time: "منذ 3 ساعات"
+                },
+                {
+                    title: "إعلان الفائزين في مهرجان سينمائي كبير",
+                    summary: "الأفلام المستقلة تهيمن على جوائز المهرجان الدولي لهذا العام.",
+                    category: "الترفيه",
+                    source: "فارايتي",
+                    time: "منذ 5 ساعات"
+                },
+                {
+                    title: "استثمارات الطاقة المتجددة تتضاعف",
+                    summary: "التوجه العالمي للطاقة الخضراء يتسارع مع وصول الاستثمارات إلى مستويات قياسية.",
+                    category: "البيئة",
+                    source: "مجلة الطاقة الخضراء",
+                    time: "منذ 7 ساعات"
+                }
+            ];
+            
             const container = document.getElementById('trending-news');
             container.innerHTML = '';
             
             trendingNews.forEach(news => {
                 const newsElement = `
                 <div class="col-md-6 mb-4">
-                    <div class="card h-100 news-card">
+                    <div class="card h-100 news-card" onclick="showArticle(${Math.floor(Math.random() * 3) + 1})">
                         <div class="card-body">
                             <span class="badge bg-primary mb-2">${news.category}</span>
                             <h6 class="card-title">${news.title}</h6>
@@ -334,35 +1029,176 @@
                 container.innerHTML += newsElement;
             });
         }
-
-        // Function to load live updates
-        function loadLiveUpdates() {
-            const container = document.getElementById('live-updates');
+        
+        // Load AI articles
+        function loadAIArticles() {
+            const aiArticles = [
+                {
+                    id: 3,
+                    title: "أفضل 5 أدوات ذكاء اصطناعي لرواد الأعمال في 2023",
+                    summary: "اكتشف أحدث الأدوات التي يمكن أن تحول عملك وتزيد أرباحك باستخدام الذكاء الاصطناعي.",
+                    category: "التكنولوجيا",
+                    time: "منذ يومين"
+                },
+                {
+                    id: 4,
+                    title: "استراتيجيات التسويق بالذكاء الاصطناعي التي يجب أن تعرفها",
+                    summary: "كيف تستخدم الذكاء الاصطناعي لجذب العملاء وزيادة المبيعات بشكل تلقائي.",
+                    category: "التسويق",
+                    time: "منذ 3 أيام"
+                },
+                {
+                    id: 5,
+                    title: "الربح من التداول الآلي باستخدام الذكاء الاصطناعي",
+                    summary: "دليل شامل لبدء رحلتك في التداول الآلي وتحقيق أرباح مستمرة.",
+                    category: "الاقتصاد",
+                    time: "منذ 4 أيام"
+                },
+                {
+                    id: 6,
+                    title: "كيف تنشئ قناة يوتيوب ناجحة بالذكاء الاصطناعي",
+                    summary: "من إنشاء المحتوى إلى تحليل الأداء، كيف يحول الذكاء الاصطناعي قناتك إلى مصدر دخل.",
+                    category: "التكنولوجيا",
+                    time: "منذ 5 أيام"
+                }
+            ];
             
-            liveUpdates.forEach((update, index) => {
-                const updateElement = `
-                <a href="#" class="list-group-item list-group-item-action ${index === 0 ? 'active' : ''}">
-                    <div class="d-flex w-100 justify-content-between">
-                        <h6 class="mb-1">${update}</h6>
-                        <small>${index + 1}h</small>
+            const container = document.getElementById('ai-articles');
+            container.innerHTML = '';
+            
+            aiArticles.forEach(article => {
+                const articleElement = `
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100 news-card" onclick="showArticle(${article.id})">
+                        <div class="card-body">
+                            <span class="badge bg-warning mb-2">${article.category}</span>
+                            <h6 class="card-title">${article.title}</h6>
+                            <p class="card-text small">${article.summary}</p>
+                            <div class="d-flex justify-content-between small">
+                                <span class="text-muted">مقال ذكاء اصطناعي</span>
+                                <span class="text-muted">${article.time}</span>
+                            </div>
+                        </div>
                     </div>
-                </a>`;
-                container.innerHTML += updateElement;
+                </div>`;
+                container.innerHTML += articleElement;
             });
         }
+        
+        // Initialize charts
+        function initCharts() {
+            // Traffic Chart
+            const trafficCtx = document.getElementById('trafficChart').getContext('2d');
+            const trafficChart = new Chart(trafficCtx, {
+                type: 'line',
+                data: {
+                    labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو'],
+                    datasets: [{
+                        label: 'الزوار الفريدون',
+                        data: [12500, 19200, 17800, 21000, 23400, 26500, 28500],
+                        borderColor: '#0d6efd',
+                        backgroundColor: 'rgba(13, 110, 253, 0.1)',
+                        tension: 0.3,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            rtl: true,
+                            labels: {
+                                font: {
+                                    family: 'Tajawal, sans-serif'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
 
-        // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            loadTrendingNews();
-            loadLiveUpdates();
+            // Geography Chart
+            const geoCtx = document.getElementById('geoChart').getContext('2d');
+            const geoChart = new Chart(geoCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['مصر', 'السعودية', 'الإمارات', 'الولايات المتحدة', 'بريطانيا', 'دول أخرى'],
+                    datasets: [{
+                        data: [42, 18, 12, 10, 8, 10],
+                        backgroundColor: [
+                            '#0d6efd',
+                            '#198754',
+                            '#ffc107',
+                            '#dc3545',
+                            '#6f42c1',
+                            '#6c757d'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            rtl: true,
+                            position: 'left',
+                            labels: {
+                                font: {
+                                    family: 'Tajawal, sans-serif'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Update visitor counter
+        function updateVisitorCounter() {
+            const counter = document.querySelector('.visitor-counter');
+            let count = 24581;
             
-            // Simulate visitor count update
             setInterval(() => {
-                const visitorCount = document.querySelector('.display-4');
-                const currentCount = parseInt(visitorCount.textContent.replace(/,/g, ''));
-                visitorCount.textContent = (currentCount + Math.floor(Math.random() * 3)).toLocaleString();
-            }, 10000);
-        });
+                count += Math.floor(Math.random() * 5) + 1;
+                counter.textContent = new Intl.NumberFormat().format(count);
+            }, 5000);
+        }
+        
+        // Simulate auto-generated articles
+        function simulateAutoArticles() {
+            setInterval(() => {
+                const newArticle = {
+                    id: Math.floor(Math.random() * 100) + 10,
+                    title: "أحدث تطورات الذكاء الاصطناعي في الربح من الإنترنت (" + new Date().toLocaleDateString() + ")",
+                    summary: "اكتشف أحدث الأدوات والاستراتيجيات للربح من الإنترنت باستخدام تقنيات الذكاء الاصطناعي الحديثة.",
+                    category: "التكنولوجيا",
+                    time: "الآن"
+                };
+                
+                const container = document.getElementById('ai-articles');
+                const firstArticle = container.querySelector('.col-md-6');
+                
+                if (firstArticle) {
+                    const articleElement = `
+                    <div class="col-md-6 mb-4">
+                        <div class="card h-100 news-card" onclick="showArticle(${newArticle.id})">
+                            <div class="card-body">
+                                <span class="badge bg-warning mb-2">${newArticle.category}</span>
+                                <h6 class="card-title">${newArticle.title}</h6>
+                                <p class="card-text small">${newArticle.summary}</p>
+                                <div class="d-flex justify-content-between small">
+                                    <span class="text-muted">مقال جديد</span>
+                                    <span class="text-muted">${newArticle.time}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
+                    
+                    container.insertAdjacentHTML('afterbegin', articleElement);
+                }
+            }, 30000); // Add new article every 30 seconds
+        }
     </script>
 </body>
 </html>
