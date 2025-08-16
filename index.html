@@ -6,7 +6,6 @@
     <title>تريند نيوز - الأخبار العالمية أولاً بأول</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         :root {
             --primary: #0d6efd;
@@ -74,12 +73,48 @@
         }
         
         .ad-container {
-            border: 1px dashed #ddd;
+            border: 1px solid #e0e0e0;
             border-radius: 10px;
             padding: 20px;
             text-align: center;
             background-color: rgba(248, 249, 250, 0.7);
             margin: 20px 0;
+            transition: all 0.3s;
+            min-height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        
+        .ad-container:hover {
+            background-color: rgba(240, 242, 245, 0.9);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .ad-label {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .ad-code {
+            width: 100%;
+            min-height: 50px;
+            background-color: #f8f9fa;
+            border: 1px dashed #ced4da;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 0.9rem;
+            color: #495057;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .ad-placeholder {
+            color: #6c757d;
+            font-size: 0.9rem;
         }
         
         footer {
@@ -146,7 +181,7 @@
         
         .ai-generated {
             position: relative;
-            border-left: 3px solid var(--accent);
+            border-right: 3px solid var(--accent);
             padding-right: 15px;
         }
         
@@ -180,6 +215,12 @@
             display: block;
         }
         
+        .sticky-ad {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 100px;
+        }
+        
         @media (max-width: 768px) {
             .sidebar {
                 position: relative;
@@ -190,11 +231,16 @@
             .admin-container {
                 flex-direction: column;
             }
+            
+            .sticky-ad {
+                position: relative;
+                top: 0;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Breaking News Bar -->
+    <!-- Breaking News Bar with Ad Space -->
     <div class="breaking-news">
         <div class="container">
             <div class="d-flex justify-content-between align-items-center">
@@ -204,6 +250,18 @@
                 </marquee>
             </div>
         </div>
+    </div>
+
+    <!-- Top Banner Ad -->
+    <div class="ad-container bg-light mt-1">
+        <span class="ad-label">إعلان أعلى الموقع</span>
+        <div class="ad-placeholder">
+            <i class="fas fa-ad me-2"></i> مساحة إعلانية 728×90 (أدسنس، أدستيرا، إلخ)
+        </div>
+        <textarea class="ad-code" placeholder="الصق كود الإعلان هنا">أضف كود الإعلان هنا</textarea>
+        <button class="btn btn-sm btn-outline-secondary mt-2 toggle-ad-code">
+            <i class="fas fa-code me-1"></i> إظهار/إخفاء كود الإعلان
+        </button>
     </div>
 
     <!-- Navigation -->
@@ -235,8 +293,21 @@
     <div id="home-page" class="page active-page">
         <div class="container my-5">
             <div class="row">
-                <!-- Featured News -->
+                <!-- Main Content -->
                 <div class="col-lg-8">
+                    <!-- Mid-Page Ad (Horizontal) -->
+                    <div class="ad-container">
+                        <span class="ad-label">إعلان وسط المحتوى</span>
+                        <div class="ad-placeholder">
+                            <i class="fas fa-ad me-2"></i> مساحة إعلانية 728×90 (وسط الصفحة)
+                        </div>
+                        <textarea class="ad-code" placeholder="الصق كود الإعلان هنا">أضف كود الإعلان هنا</textarea>
+                        <button class="btn btn-sm btn-outline-secondary mt-2 toggle-ad-code">
+                            <i class="fas fa-code me-1"></i> إظهار/إخفاء كود الإعلان
+                        </button>
+                    </div>
+
+                    <!-- Featured News -->
                     <div class="mb-5">
                         <h2 class="mb-4 border-bottom pb-2">أهم العناوين</h2>
                         <div class="row">
@@ -292,16 +363,33 @@
                         </div>
                     </div>
 
-                    <!-- Ad Space -->
-                    <div class="ad-container mb-5">
-                        <h4>مساحة إعلانية</h4>
-                        <img src="https://via.placeholder.com/728x90?text=مساحة+إعلانية+مميزة" alt="Advertisement" class="img-fluid">
-                        <p class="mt-2 mb-0">يمكن أن يكون إعلانك هنا</p>
+                    <!-- Bottom Ad (Before Footer) -->
+                    <div class="ad-container">
+                        <span class="ad-label">إعلان أسفل المحتوى</span>
+                        <div class="ad-placeholder">
+                            <i class="fas fa-ad me-2"></i> مساحة إعلانية 728×90 (أسفل الصفحة)
+                        </div>
+                        <textarea class="ad-code" placeholder="الصق كود الإعلان هنا">أضف كود الإعلان هنا</textarea>
+                        <button class="btn btn-sm btn-outline-secondary mt-2 toggle-ad-code">
+                            <i class="fas fa-code me-1"></i> إظهار/إخفاء كود الإعلان
+                        </button>
                     </div>
                 </div>
 
                 <!-- Sidebar -->
                 <div class="col-lg-4">
+                    <!-- Sidebar Ad (Vertical) -->
+                    <div class="ad-container sticky-ad">
+                        <span class="ad-label">إعلان الشريط الجانبي</span>
+                        <div class="ad-placeholder">
+                            <i class="fas fa-ad me-2"></i> مساحة إعلانية 300×600
+                        </div>
+                        <textarea class="ad-code" placeholder="الصق كود الإعلان هنا">أضف كود الإعلان هنا</textarea>
+                        <button class="btn btn-sm btn-outline-secondary mt-2 toggle-ad-code">
+                            <i class="fas fa-code me-1"></i> إظهار/إخفاء كود الإعلان
+                        </button>
+                    </div>
+
                     <!-- Visitor Counter -->
                     <div class="card mb-4">
                         <div class="card-header bg-info text-white">
@@ -367,6 +455,18 @@
                 <i class="fas fa-arrow-right me-2"></i> العودة للأخبار
             </button>
             
+            <!-- In-Article Ad (Top) -->
+            <div class="ad-container mb-4">
+                <span class="ad-label">إعلان أعلى المقال</span>
+                <div class="ad-placeholder">
+                    <i class="fas fa-ad me-2"></i> مساحة إعلانية 728×90 (أعلى المقال)
+                </div>
+                <textarea class="ad-code" placeholder="الصق كود الإعلان هنا">أضف كود الإعلان هنا</textarea>
+                <button class="btn btn-sm btn-outline-secondary mt-2 toggle-ad-code">
+                    <i class="fas fa-code me-1"></i> إظهار/إخفاء كود الإعلان
+                </button>
+            </div>
+            
             <article class="bg-white p-4 rounded shadow">
                 <h1 id="article-title"></h1>
                 <div class="d-flex justify-content-between border-bottom pb-3 mb-4">
@@ -375,10 +475,34 @@
                 </div>
                 <div id="article-content" class="article-content"></div>
                 
+                <!-- In-Article Ad (Middle) -->
+                <div class="ad-container my-5">
+                    <span class="ad-label">إعلان وسط المقال</span>
+                    <div class="ad-placeholder">
+                        <i class="fas fa-ad me-2"></i> مساحة إعلانية 728×90 (وسط المقال)
+                    </div>
+                    <textarea class="ad-code" placeholder="الصق كود الإعلان هنا">أضف كود الإعلان هنا</textarea>
+                    <button class="btn btn-sm btn-outline-secondary mt-2 toggle-ad-code">
+                        <i class="fas fa-code me-1"></i> إظهار/إخفاء كود الإعلان
+                    </button>
+                </div>
+                
                 <div class="mt-5 pt-4 border-top">
                     <h4><i class="fas fa-tags me-2"></i> التصنيف: <span id="article-category" class="badge bg-primary"></span></h4>
                 </div>
             </article>
+            
+            <!-- In-Article Ad (Bottom) -->
+            <div class="ad-container mt-4">
+                <span class="ad-label">إعلان أسفل المقال</span>
+                <div class="ad-placeholder">
+                    <i class="fas fa-ad me-2"></i> مساحة إعلانية 728×90 (أسفل المقال)
+                </div>
+                <textarea class="ad-code" placeholder="الصق كود الإعلان هنا">أضف كود الإعلان هنا</textarea>
+                <button class="btn btn-sm btn-outline-secondary mt-2 toggle-ad-code">
+                    <i class="fas fa-code me-1"></i> إظهار/إخفاء كود الإعلان
+                </button>
+            </div>
             
             <div class="mt-5">
                 <h4 class="mb-4">مقالات ذات صلة</h4>
@@ -422,265 +546,6 @@
         </div>
     </div>
 
-    <!-- Admin Dashboard -->
-    <div id="admin-dashboard" class="page">
-        <div class="admin-container d-flex">
-            <!-- Sidebar -->
-            <div class="sidebar p-3">
-                <h4 class="text-center my-4">لوحة تحكم تريند نيوز</h4>
-                <hr class="bg-light">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#" onclick="showAdminSection('dashboard')">
-                            <i class="fas fa-tachometer-alt me-2"></i> لوحة التحكم
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="showAdminSection('manage-news')">
-                            <i class="fas fa-newspaper me-2"></i> إدارة المقالات
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="showAdminSection('manage-ads')">
-                            <i class="fas fa-ad me-2"></i> إدارة الإعلانات
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="showAdminSection('analytics')">
-                            <i class="fas fa-chart-bar me-2"></i> الإحصائيات
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="showAdminSection('ai-articles')">
-                            <i class="fas fa-robot me-2"></i> توليد مقالات بالذكاء الاصطناعي
-                        </a>
-                    </li>
-                    <li class="nav-item mt-4">
-                        <a class="nav-link" href="#" onclick="showPage('home-page')">
-                            <i class="fas fa-arrow-right me-2"></i> العودة للموقع
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Main Content -->
-            <div class="flex-grow-1 p-4" style="margin-right: 250px;">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                    <h3 id="admin-section-title">لوحة التحكم</h3>
-                    <div>
-                        <span class="me-3"><i class="fas fa-bell"></i></span>
-                        <span class="me-3"><i class="fas fa-user-circle"></i> المشرف</span>
-                        <button class="btn btn-sm btn-outline-danger" onclick="showPage('home-page')">تسجيل الخروج</button>
-                    </div>
-                </div>
-
-                <!-- Dashboard Section -->
-                <div id="dashboard-section" class="admin-section">
-                    <div class="row mb-4">
-                        <div class="col-md-3 mb-3">
-                            <div class="card stat-card bg-primary text-white">
-                                <div class="card-body">
-                                    <h6>إجمالي الزوار</h6>
-                                    <h2>245,812</h2>
-                                    <div class="d-flex align-items-center">
-                                        <span class="me-2">+12.5%</span>
-                                        <i class="fas fa-arrow-up"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="card stat-card bg-success text-white">
-                                <div class="card-body">
-                                    <h6>مقالات الأخبار</h6>
-                                    <h2>1,842</h2>
-                                    <div class="d-flex align-items-center">
-                                        <span class="me-2">+8 جديد</span>
-                                        <i class="fas fa-plus-circle"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="card stat-card bg-info text-white">
-                                <div class="card-body">
-                                    <h6>إعلانات نشطة</h6>
-                                    <h2>24</h2>
-                                    <div class="d-flex align-items-center">
-                                        <span class="me-2">إيرادات: $12,480</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 mb-3">
-                            <div class="card stat-card bg-warning text-dark">
-                                <div class="card-body">
-                                    <h6>مشاركة المستخدمين</h6>
-                                    <h2>78.3%</h2>
-                                    <div class="d-flex align-items-center">
-                                        <span class="me-2">متوسط الوقت: 4m 22s</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-header bg-info text-white">
-                                    <i class="fas fa-chart-line me-2"></i> حركة الزوار
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="trafficChart" height="250"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-header bg-success text-white">
-                                    <i class="fas fa-globe-africa me-2"></i> توزيع الزوار الجغرافي
-                                </div>
-                                <div class="card-body">
-                                    <canvas id="geoChart" height="250"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Manage News Section -->
-                <div id="manage-news-section" class="admin-section" style="display:none;">
-                    <div class="card mb-4">
-                        <div class="card-header bg-dark text-white">
-                            <i class="fas fa-edit me-2"></i> إدارة المقالات
-                        </div>
-                        <div class="card-body">
-                            <button class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addArticleModal">
-                                <i class="fas fa-plus me-2"></i> إضافة مقال جديد
-                            </button>
-                            
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>العنوان</th>
-                                            <th>التصنيف</th>
-                                            <th>تاريخ النشر</th>
-                                            <th>الحالة</th>
-                                            <th>الإجراءات</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>تقدم في محادثات السلام العالمية</td>
-                                            <td>السياسة</td>
-                                            <td>2023-08-15</td>
-                                            <td><span class="badge bg-success">نشط</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>اختراق جديد في الذكاء الاصطناعي</td>
-                                            <td>التكنولوجيا</td>
-                                            <td>2023-08-14</td>
-                                            <td><span class="badge bg-success">نشط</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>ارتفاع أسواق المال العالمية</td>
-                                            <td>الاقتصاد</td>
-                                            <td>2023-08-13</td>
-                                            <td><span class="badge bg-success">نشط</span></td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Manage Ads Section -->
-                <div id="manage-ads-section" class="admin-section" style="display:none;">
-                    <div class="card mb-4">
-                        <div class="card-header bg-dark text-white">
-                            <i class="fas fa-ad me-2"></i> إدارة الإعلانات
-                        </div>
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between mb-3">
-                                <h5>حملات الإعلان الحالية</h5>
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAdModal"><i class="fas fa-plus me-2"></i> إعلان جديد</button>
-                            </div>
-                            
-                            <div class="table-responsive">
-                                <table class="table table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th>عنوان الإعلان</th>
-                                            <th>الموقع</th>
-                                            <th>الحالة</th>
-                                            <th>الظهورات</th>
-                                            <th>النقرات</th>
-                                            <th>تاريخ البدء</th>
-                                            <th>الإجراءات</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>عرض خاص على الهواتف الذكية</td>
-                                            <td>أعلى الصفحة</td>
-                                            <td><span class="badge bg-success">نشط</span></td>
-                                            <td>124,582</td>
-                                            <td>3,842</td>
-                                            <td>2023-06-15</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>خدمات الاستثمار العالمية</td>
-                                            <td>الشريط الجانبي</td>
-                                            <td><span class="badge bg-success">نشط</span></td>
-                                            <td>98,451</td>
-                                            <td>2,156</td>
-                                            <td>2023-07-01</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>عروض السفر إلى مصر</td>
-                                            <td>منتصف المقال</td>
-                                            <td><span class="badge bg-warning">متوقف</span></td>
-                                            <td>56,782</td>
-                                            <td>1,487</td>
-                                            <td>2023-05-22</td>
-                                            <td>
-                                                <button class="btn btn-sm btn-outline-primary me-1"><i class="fas fa-edit"></i></button>
-                                                <button class="btn btn-sm btn-outline-danger"><i class="fas fa-trash"></i></button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -717,105 +582,24 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Footer Ad -->
+            <div class="ad-container bg-dark border-light mt-4">
+                <span class="ad-label text-light">إعلان الفوتر</span>
+                <div class="ad-placeholder text-light">
+                    <i class="fas fa-ad me-2"></i> مساحة إعلانية 728×90 (أسفل الموقع)
+                </div>
+                <textarea class="ad-code" placeholder="الصق كود الإعلان هنا">أضف كود الإعلان هنا</textarea>
+                <button class="btn btn-sm btn-outline-light mt-2 toggle-ad-code">
+                    <i class="fas fa-code me-1"></i> إظهار/إخفاء كود الإعلان
+                </button>
+            </div>
+            
             <div class="border-top pt-4 mt-4 text-center">
                 <p>&copy; 2023 تريند نيوز. جميع الحقوق محفوظة.</p>
             </div>
         </div>
     </footer>
-
-    <!-- Modals -->
-    <div class="modal fade" id="addArticleModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">إضافة مقال جديد</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label class="form-label">عنوان المقال</label>
-                            <input type="text" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">المحتوى</label>
-                            <textarea class="form-control" rows="8" required></textarea>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">التصنيف</label>
-                                <select class="form-select" required>
-                                    <option value="world">عالمي</option>
-                                    <option value="politics">السياسة</option>
-                                    <option value="business">الاقتصاد</option>
-                                    <option value="technology">التكنولوجيا</option>
-                                    <option value="health">الصحة</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">صورة المقال</label>
-                                <input type="file" class="form-control" accept="image/*">
-                            </div>
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="featured">
-                            <label class="form-check-label" for="featured">مقال مميز</label>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                    <button type="button" class="btn btn-primary">حفظ المقال</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="addAdModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">إضافة إعلان جديد</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label class="form-label">عنوان الإعلان</label>
-                            <input type="text" class="form-control" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">كود الإعلان</label>
-                            <textarea class="form-control" rows="4" required></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">الموقع</label>
-                            <select class="form-select" required>
-                                <option value="top">أعلى الصفحة</option>
-                                <option value="sidebar">الشريط الجانبي</option>
-                                <option value="middle">منتصف المقال</option>
-                                <option value="bottom">أسفل الصفحة</option>
-                            </select>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">تاريخ البدء</label>
-                                <input type="date" class="form-control" required>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label class="form-label">تاريخ الانتهاء</label>
-                                <input type="date" class="form-control">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إلغاء</button>
-                    <button type="button" class="btn btn-primary">حفظ الإعلان</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -824,9 +608,6 @@
             // Load news
             loadTrendingNews();
             loadAIArticles();
-            
-            // Initialize charts
-            initCharts();
             
             // Initialize visitor counter
             updateVisitorCounter();
@@ -839,6 +620,14 @@
                 e.preventDefault();
                 showPage('admin-dashboard');
             });
+            
+            // Ad code toggle
+            document.querySelectorAll('.toggle-ad-code').forEach(button => {
+                button.addEventListener('click', function() {
+                    const adCode = this.parentElement.querySelector('.ad-code');
+                    adCode.style.display = adCode.style.display === 'block' ? 'none' : 'block';
+                });
+            });
         });
 
         // Pages navigation
@@ -850,24 +639,6 @@
             
             // Scroll to top
             window.scrollTo(0, 0);
-        }
-        
-        // Admin sections
-        function showAdminSection(sectionId) {
-            document.querySelectorAll('.admin-section').forEach(section => {
-                section.style.display = 'none';
-            });
-            document.getElementById(sectionId + '-section').style.display = 'block';
-            
-            // Update title
-            const titles = {
-                'dashboard': 'لوحة التحكم',
-                'manage-news': 'إدارة المقالات',
-                'manage-ads': 'إدارة الإعلانات',
-                'analytics': 'الإحصائيات',
-                'ai-articles': 'توليد مقالات بالذكاء الاصطناعي'
-            };
-            document.getElementById('admin-section-title').textContent = titles[sectionId];
         }
         
         // Show article
@@ -1082,75 +853,6 @@
                     </div>
                 </div>`;
                 container.innerHTML += articleElement;
-            });
-        }
-        
-        // Initialize charts
-        function initCharts() {
-            // Traffic Chart
-            const trafficCtx = document.getElementById('trafficChart').getContext('2d');
-            const trafficChart = new Chart(trafficCtx, {
-                type: 'line',
-                data: {
-                    labels: ['يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو', 'يوليو'],
-                    datasets: [{
-                        label: 'الزوار الفريدون',
-                        data: [12500, 19200, 17800, 21000, 23400, 26500, 28500],
-                        borderColor: '#0d6efd',
-                        backgroundColor: 'rgba(13, 110, 253, 0.1)',
-                        tension: 0.3,
-                        fill: true
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            rtl: true,
-                            labels: {
-                                font: {
-                                    family: 'Tajawal, sans-serif'
-                                }
-                            }
-                        }
-                    }
-                }
-            });
-
-            // Geography Chart
-            const geoCtx = document.getElementById('geoChart').getContext('2d');
-            const geoChart = new Chart(geoCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['مصر', 'السعودية', 'الإمارات', 'الولايات المتحدة', 'بريطانيا', 'دول أخرى'],
-                    datasets: [{
-                        data: [42, 18, 12, 10, 8, 10],
-                        backgroundColor: [
-                            '#0d6efd',
-                            '#198754',
-                            '#ffc107',
-                            '#dc3545',
-                            '#6f42c1',
-                            '#6c757d'
-                        ]
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            rtl: true,
-                            position: 'left',
-                            labels: {
-                                font: {
-                                    family: 'Tajawal, sans-serif'
-                                }
-                            }
-                        }
-                    }
-                }
             });
         }
         
