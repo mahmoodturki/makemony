@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>مقالات ترند</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
             background-color: #f4f4f4;
         }
 
@@ -34,14 +33,6 @@
             text-decoration: none;
         }
 
-        h1, h2 {
-            margin: 0;
-        }
-
-        main {
-            padding: 20px;
-        }
-
         .articles {
             background: #ffffff;
             padding: 15px;
@@ -59,6 +50,18 @@
             bottom: 0;
             width: 100%;
         }
+
+        .visitor-counter {
+            font-size: 1.5em;
+            color: #35424a;
+            margin: 20px 0;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+        }
     </style>
 </head>
 <body>
@@ -73,7 +76,31 @@
         </nav>
     </header>
 
-    <main>
+    <div id="visitorCounter" class="visitor-counter text-center">عدد الزوار: <span id="visitorCount">0</span></div>
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                &lt;img src="https://via.placeholder.com/800x400?text=أدوات+الذكاء+الاصطناعي" class="d-block w-100" alt="أدوات الذكاء الاصطناعي"&gt;
+            </div>
+            <div class="carousel-item">
+                &lt;img src="https://via.placeholder.com/800x400?text=الربح+من+الإنترنت" class="d-block w-100" alt="الربح من الإنترنت"&gt;
+            </div>
+            <div class="carousel-item">
+                &lt;img src="https://via.placeholder.com/800x400?text=فقدان+الوزن" class="d-block w-100" alt="فقدان الوزن"&gt;
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">السابق</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">التالي</span>
+        </a>
+    </div>
+
+    <main class="container mt-4">
         <section id="ai">
             <h2>أدوات الذكاء الاصطناعي</h2>
             <div id="ai-articles" class="articles"></div>
@@ -94,6 +121,9 @@
         <p>جميع الحقوق محفوظة &copy; 2025</p>
     </footer>
 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         const articles = {
             ai: [
@@ -128,7 +158,5 @@
             });
         }
 
-        loadArticles();
-    </script>
-</body>
-</html>
+        // عداد الزوار
+        let visitorCount
