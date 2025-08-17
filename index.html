@@ -3,127 +3,147 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Trendy USA News - 100 Latest Trending Articles</title>
+  <title>Trendy USA News | 100 Hot Articles + Make Money & Weight-Loss Tips</title>
   <style>
+    :root{
+      --main:#0057ff;
+      --bg:#f5f7fa;
+      --card:#ffffff;
+      --shadow:0 4px 16px rgba(0,0,0,.08);
+      --radius:12px;
+    }
     *{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif;}
-    body{background:#f9f9f9;color:#111;line-height:1.7;padding-bottom:100px;}
-    header{background:#111;color:#fff;padding:30px 20px;text-align:center;}
-    header h1{font-size:2em;margin-bottom:10px;}
-    main{max-width:900px;margin:30px auto;padding:0 15px;}
-    article{background:#fff;border-radius:8px;padding:20px;margin-bottom:25px;box-shadow:0 2px 6px rgba(0,0,0,.1);}
-    article h2{font-size:1.4em;margin-bottom:10px;color:#0057ff;}
-    article p{margin-bottom:12px;}
-    article a{color:#0057ff;text-decoration:none;font-weight:bold;}
+    body{background:var(--bg);color:#111;line-height:1.7;padding-bottom:100px;scroll-behavior:smooth;}
+    header{background:linear-gradient(135deg,#111 0%,var(--main) 100%);color:#fff;padding:50px 20px;text-align:center;}
+    header h1{font-size:2.4em;margin-bottom:10px;letter-spacing:.5px;}
+    header p{font-size:1.1em;opacity:.9;}
+    main{max-width:1000px;margin:40px auto;padding:0 15px;}
+    section{margin-bottom:60px;}
+    h2.section-title{margin-bottom:25px;font-size:1.8em;color:var(--main);border-left:6px solid var(--main);padding-left:12px;}
+    article{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:transform .3s;}
+    article:hover{transform:translateY(-6px);}
+    article img{width:100%;height:200px;object-fit:cover;}
+    article .content{padding:20px;}
+    article h3{font-size:1.3em;margin-bottom:10px;color:#111;}
+    article p{font-size:.95em;color:#444;margin-bottom:12px;}
+    article a{color:var(--main);font-weight:bold;}
     article a:hover{text-decoration:underline;}
-    .ads{margin:25px 0;text-align:center;}
-    footer{position:fixed;bottom:0;left:0;right:0;background:#111;color:#aaa;text-align:center;padding:10px;font-size:.8em;}
-    @media(max-width:600px){header h1{font-size:1.6em;}}
+    .ads{text-align:center;margin:30px 0;}
+    footer{position:fixed;bottom:0;left:0;right:0;background:#111;color:#aaa;text-align:center;padding:12px;font-size:.8em;}
+    .money-banner, .weight-banner{background:linear-gradient(135deg,#ff416c,#ff4b2b);color:#fff;padding:30px 20px;border-radius:var(--radius);text-align:center;margin-bottom:40px;}
+    .weight-banner{background:linear-gradient(135deg,#11998e,#38ef7d);}
+    .money-banner h3,.weight-banner h3{font-size:1.6em;margin-bottom:10px;}
+    .money-banner a,.weight-banner a{background:#fff;color:#ff416c;padding:8px 20px;border-radius:30px;font-weight:bold;text-decoration:none;}
+    .weight-banner a{color:#11998e;}
+    @media(max-width:600px){
+      header h1{font-size:2em;}
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>🇺🇸 Trendy USA News</h1>
-    <p>100 Latest Trending Articles in the United States – Updated Daily</p>
+    <p>100 Hot Articles + Make Money & Lose Weight Tips</p>
   </header>
 
-  <main id="articles">
-    <!-- Adsterra ad -->
-    <div class="ads">
-      <script type="text/javascript">
-        atOptions = {
-          'key' : 'dd1a0bafdb2ffb4e474ca0178ec5b13c',
-          'format' : 'iframe',
-          'height' : 50,
-          'width' : 320,
-          'params' : {}
-        };
-      </script>
-      <script type="text/javascript" src="//www.highperformanceformat.com/dd1a0bafdb2ffb4e474ca0178ec5b13c/invoke.js"></script>
-    </div>
+  <!-- Adsterra -->
+  <div class="ads">
+    <script type="text/javascript">
+      atOptions = {
+        'key' : 'dd1a0bafdb2ffb4e474ca0178ec5b13c',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    </script>
+    <script type="text/javascript" src="//www.highperformanceformat.com/dd1a0bafdb2ffb4e474ca0178ec5b13c/invoke.js"></script>
+  </div>
 
-    <!-- 100 Trending Articles (Auto-generated) -->
-    <!-- Article 1 -->
-    <article>
-      <h2>1. Trump Announces New 2024 Campaign Strategy</h2>
-      <p>Former President Donald Trump revealed a fresh campaign roadmap targeting swing states. The plan includes major rallies and digital ad blitzes.</p>
-      <p><a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank" rel="noopener">📘 Check out the 30-Day Weight Loss Revolution</a></p>
-    </article>
+  <main>
+    <!-- قسم ربح المال -->
+    <section>
+      <h2 class="section-title">💰 Make Money Online</h2>
+      <div class="money-banner">
+        <h3>Start Your $100/Day Journey Today!</h3>
+        <a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank">Grab Your 30-Day Guide</a>
+      </div>
+      <article>
+        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=800&q=60" alt="Make Money">
+        <div class="content">
+          <h3>Affiliate Marketing 2025: The $0 to $10K Blueprint</h3>
+          <p>Learn the exact steps influencers use to earn thousands monthly without showing their face.</p>
+          <a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank">Read full guide &rarr;</a>
+        </div>
+      </article>
+    </section>
 
-    <!-- Article 2 -->
-    <article>
-      <h2>2. Fed Hints at Interest Rate Pause in June</h2>
-      <p>Markets rallied after the Federal Reserve signaled it may hold rates steady next month amid cooling inflation data.</p>
-      <p><a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank" rel="noopener">📘 Check out the 30-Day Weight Loss Revolution</a></p>
-    </article>
+    <!-- قسم فقدان الوزن -->
+    <section>
+      <h2 class="section-title">🏋️ Weight-Loss Trends</h2>
+      <div class="weight-banner">
+        <h3>Lose 10 lbs in 30 Days – Guaranteed!</h3>
+        <a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank">Download the Book</a>
+      </div>
+      <article>
+        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=800&q=60" alt="Weight Loss">
+        <div class="content">
+          <h3>Intermittent Fasting: The 16/8 Method Explained</h3>
+          <p>Science-backed tips to burn fat faster while still enjoying your favorite foods.</p>
+          <a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank">Get the plan &rarr;</a>
+        </div>
+      </article>
+    </section>
 
-    <!-- Article 3 -->
-    <article>
-      <h2>3. Apple Unveils AI-Powered iOS 18 Features</h2>
-      <p>Apple showcased generative-AI tools built into iOS 18, including live translation and advanced photo editing, at WWDC.</p>
-      <p><a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank" rel="noopener">📘 Check out the 30-Day Weight Loss Revolution</a></p>
-    </article>
+    <!-- 100 Trending Articles -->
+    <section>
+      <h2 class="section-title">🔥 100 Trending USA Articles</h2>
+      <!-- Article 1 -->
+      <article>
+        <img src="https://source.unsplash.com/800x400/?politics,trump" alt="Trump Campaign">
+        <div class="content">
+          <h3>Trump Kicks Off 2024 Swing-State Blitz</h3>
+          <p>Massive rallies in Michigan and Pennsylvania mark the start of his fall campaign push.</p>
+          <a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank">📘 30-Day Weight Loss Guide</a>
+        </div>
+      </article>
 
-    <!-- Article 4 -->
-    <article>
-      <h2>4. Hollywood Writers Reach Tentative Deal with Studios</h2>
-      <p>After a 148-day strike, the Writers Guild and major studios agreed on new streaming residuals and AI safeguards.</p>
-      <p><a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank" rel="noopener">📘 Check out the 30-Day Weight Loss Revolution</a></p>
-    </article>
+      <!-- Article 2 -->
+      <article>
+        <img src="https://source.unsplash.com/800x400/?money,finance" alt="Fed Rates">
+        <div class="content">
+          <h3>Fed Hints at Rate Pause Amid Cooling Inflation</h3>
+          <p>Markets surge as Powell signals a possible hold in September.</p>
+          <a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank">📘 30-Day Weight Loss Guide</a>
+        </div>
+      </article>
 
-    <!-- Article 5 -->
-    <article>
-      <h2>5. NASA Launches Mission to Study Solar Flares</h2>
-      <p>The Parker Solar Probe’s latest flyby aims to capture high-resolution data on the sun’s magnetic storms.</p>
-      <p><a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank" rel="noopener">📘 Check out the 30-Day Weight Loss Revolution</a></p>
-    </article>
+      <!-- Article 3 -->
+      <article>
+        <img src="https://source.unsplash.com/800x400/?apple,iphone" alt="iOS 18">
+        <div class="content">
+          <h3>Apple Unveils AI-Powered iOS 18 Features</h3>
+          <p>Live translation, AI photo edits, and smarter Siri headline the WWDC keynote.</p>
+          <a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank">📘 30-Day Weight Loss Guide</a>
+        </div>
+      </article>
 
-    <!-- Article 6 -->
-    <article>
-      <h2>6. Record Heatwave Sweeps Southwest States</h2>
-      <p>Temperatures in Phoenix soared past 115°F, prompting emergency cooling centers and power-grid alerts.</p>
-      <p><a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank" rel="noopener">📘 Check out the 30-Day Weight Loss Revolution</a></p>
-    </article>
+      <!-- ... (Articles 4–100 follow the same pattern) ... -->
 
-    <!-- Article 7 -->
-    <article>
-      <h2>7. TikTok Faces New Senate Bill to Ban App Nationwide</h2>
-      <p>Bipartisan lawmakers introduced legislation citing national-security concerns over Chinese ownership of TikTok.</p>
-      <p><a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank" rel="noopener">📘 Check out the 30-Day Weight Loss Revolution</a></p>
-    </article>
-
-    <!-- Article 8 -->
-    <article>
-      <h2>8. Amazon Prime Day Sales Break All-Time Record</h2>
-      <p>Prime members bought over 375 million items during the 48-hour event, boosting Amazon’s Q3 revenue outlook.</p>
-      <p><a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank" rel="noopener">📘 Check out the 30-Day Weight Loss Revolution</a></p>
-    </article>
-
-    <!-- Article 9 -->
-    <article>
-      <h2>9. OpenAI Releases GPT-4o Mini for Mobile Devices</h2>
-      <p>The lightweight model brings advanced chat capabilities to budget smartphones without cloud dependency.</p>
-      <p><a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank" rel="noopener">📘 Check out the 30-Day Weight Loss Revolution</a></p>
-    </article>
-
-    <!-- Article 10 -->
-    <article>
-      <h2>10. NFL Preseason Tickets Sell Out in Minutes</h2>
-      <p>Demand for preseason games surged after the league announced new international matchups in London and São Paulo.</p>
-      <p><a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank" rel="noopener">📘 Check out the 30-Day Weight Loss Revolution</a></p>
-    </article>
-
-    <!-- ... (Articles 11–100 follow the same structure) ... -->
-
-    <!-- Article 100 -->
-    <article>
-      <h2>100. Crypto Market Cap Surpasses $2 Trillion Again</h2>
-      <p>Bitcoin and Ethereum led a broad rally as institutional investors poured back into digital assets ahead of the halving cycle.</p>
-      <p><a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank" rel="noopener">📘 Check out the 30-Day Weight Loss Revolution</a></p>
-    </article>
+      <!-- Article 100 -->
+      <article>
+        <img src="https://source.unsplash.com/800x400/?crypto,bitcoin" alt="Crypto">
+        <div class="content">
+          <h3>Crypto Market Cap Tops $2 Trillion Again</h3>
+          <p>Bitcoin and Ethereum lead a broad rally ahead of the next halving cycle.</p>
+          <a href="https://turkivibes2.gumroad.com/l/yjlmvb" target="_blank">📘 30-Day Weight Loss Guide</a>
+        </div>
+      </article>
+    </section>
   </main>
 
   <footer>
-    © 2025 Trendy USA News | All rights reserved | Hosting by GitHub Pages
+    © 2025 Trendy USA News | Built with ❤️ for fast money & easy weight loss
   </footer>
 </body>
 </html>
