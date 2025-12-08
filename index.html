@@ -1,132 +1,1167 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Trendy Hub | أخبار ورياضة وعملات وصحة</title>
-  <meta name="description" content="مقالات ترند من الولايات المتحدة تتغير كل دقيقة مع أقسام متعددة"/>
-  <style>
-    :root{--main:#0057ff;--bg:#f5f7fa;--card:#fff;--shadow:0 4px 16px rgba(0,0,0,.08);--radius:12px}
-    *{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',Arial,Helvetica,sans-serif}
-    body{background:var(--bg);color:#111;line-height:1.7;padding-bottom:120px}
-    header{background:linear-gradient(135deg,#111 0%,var(--main) 100%);color:#fff;padding:40px 20px;text-align:center}
-    header h1{font-size:2.2em;margin-bottom:8px}
-    nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:15px 0}
-    nav button{background:#fff;color:var(--main);border:none;padding:8px 16px;border-radius:25px;font-weight:bold;cursor:pointer;transition:.3s}
-    nav button.active{background:var(--main);color:#fff}
-    main{max-width:1100px;margin:40px auto;padding:0 15px}
-    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:25px}
-    article{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;transition:transform .3s}
-    article:hover{transform:translateY(-6px)}
-    article img{width:100%;height:200px;object-fit:cover}
-    article .content{padding:15px}
-    article h2{font-size:1.2em;margin-bottom:6px}
-    article h2 a{color:var(--main);text-decoration:none}
-    article p{color:#555;font-size:.9em}
-    .ads{text-align:center;margin:30px 0}
-    footer{position:fixed;bottom:0;left:0;right:0;background:#111;color:#aaa;text-align:center;padding:10px;font-size:.8em}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة تبادل مشاهدات اليوتيوب</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #FF0000;
+            --secondary-color: #28a745;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: var(--dark-color);
+        }
+
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, #FF0000 0%, #cc0000 100%);
+            color: white;
+            padding: 80px 0;
+            border-radius: 0 0 30px 30px;
+            margin-bottom: 40px;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 25px;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .card-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 15px 15px 0 0 !important;
+            font-weight: bold;
+            padding: 15px 20px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: #cc0000;
+            border-color: #cc0000;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            border-radius: 50px;
+            padding: 10px 25px;
+            font-weight: bold;
+        }
+
+        .points-badge {
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 50px;
+            padding: 5px 15px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .video-item {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .video-item:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .video-thumbnail {
+            width: 120px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-left: 15px;
+        }
+
+        .video-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--dark-color);
+        }
+
+        .video-meta {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+
+        .watch-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .watch-btn:hover {
+            background-color: #cc0000;
+            transform: translateY(-2px);
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .stats-card {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .stats-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        .footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 40px 0;
+            margin-top: 60px;
+        }
+
+        .footer h5 {
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .footer a {
+            color: #adb5bd;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: white;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #ced4da;
+            padding: 12px 15px;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(255, 0, 0, 0.25);
+        }
+
+        .alert {
+            border-radius: 10px;
+            border: none;
+            padding: 15px 20px;
+        }
+
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+        }
+
+        .modal-header {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .modal-header .btn-close {
+            filter: invert(1);
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .loading-spinner .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .video-thumbnail {
+                width: 100px;
+                height: 70px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fab fa-youtube"></i> يوتيوب بلس
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#"><i class="fas fa-home"></i> الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#videos"><i class="fas fa-video"></i> الفيديوهات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#stats"><i class="fas fa-chart-bar"></i> الإحصائيات</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about"><i class="fas fa-info-circle"></i> عن المنصة</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <div class="points-badge me-3">
+                        <i class="fas fa-coins"></i> <span id="userPoints">0</span> نقطة
+                    </div>
+                    <button class="btn btn-outline-light" id="loginBtn">
+                        <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-<!-- Adsterra -->
-<div class="ads">
-  <script type="text/javascript">
-    atOptions={'key':'dd1a0bafdb2ffb4e474ca0178ec5b13c','format':'iframe','height':50,'width':320,'params':{}};</script>
-  <script src="//www.highperformanceformat.com/dd1a0bafdb2ffb4e474ca0178ec5b13c/invoke.js"></script>
-</div>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="hero-title">منصة تبادل مشاهدات اليوتيوب</h1>
+            <p class="hero-subtitle">اكتسب مشاهدات حقيقية لفيديوهاتك من خلال نظام النقاط الذكي</p>
+            <div class="d-flex justify-content-center gap-3">
+                <button class="btn btn-light btn-lg" id="getStartedBtn">
+                    <i class="fas fa-rocket"></i> ابدأ الآن
+                </button>
+                <button class="btn btn-outline-light btn-lg" id="howItWorksBtn">
+                    <i class="fas fa-question-circle"></i> كيف يعمل؟
+                </button>
+            </div>
+        </div>
+    </section>
 
-<header>
-  <h1>🔥 Trendy Hub</h1>
-  <p>آخر الأخبار والمقالات الأمريكية • تحديث كل دقيقة</p>
-  <nav>
-    <button class="section-btn active" data-sec="news">أخبار</button>
-    <button class="section-btn" data-sec="sports">رياضة</button>
-    <button class="section-btn" data-sec="weightloss">فقدان الوزن</button>
-    <button class="section-btn" data-sec="food">طعام</button>
-    <button class="section-btn" data-sec="crypto">عملات رقمية</button>
-    <button class="section-btn" data-sec="economy">اقتصاد</button>
-  </nav>
-</header>
+    <!-- Main Content -->
+    <div class="container mb-5">
+        <div class="row">
+            <!-- Left Column - Add Video & User Videos -->
+            <div class="col-lg-4">
+                <!-- Add Video Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-plus-circle"></i> إضافة فيديو جديد
+                    </div>
+                    <div class="card-body">
+                        <form id="addVideoForm">
+                            <div class="mb-3">
+                                <label for="videoTitle" class="form-label">عنوان الفيديو</label>
+                                <input type="text" class="form-control" id="videoTitle" placeholder="أدخل عنوان الفيديو" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="videoUrl" class="form-label">رابط الفيديو</label>
+                                <input type="url" class="form-control" id="videoUrl" placeholder="https://www.youtube.com/watch?v=..." required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="videoPoints" class="form-label">النقاط المخصصة</label>
+                                <select class="form-select" id="videoPoints">
+                                    <option value="1">1 نقطة (مشاهدة واحدة)</option>
+                                    <option value="2">2 نقطة (مشاهدتان)</option>
+                                    <option value="5">5 نقاط (5 مشاهدات)</option>
+                                    <option value="10">10 نقاط (10 مشاهدات)</option>
+                                </select>
+                            </div>
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> إضافة الفيديو
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
 
-<main>
-  <section id="articles-container" class="grid"></section>
-</main>
+                <!-- User Videos Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-list"></i> فيديوهاتي
+                    </div>
+                    <div class="card-body">
+                        <div id="userVideosList">
+                            <div class="text-center py-4">
+                                <i class="fas fa-video-slash fa-3x text-muted mb-3"></i>
+                                <p class="text-muted">لا توجد فيديوهات مضافة بعد</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<div class="ads">
-  <script type="text/javascript">
-    atOptions={'key':'dd1a0bafdb2ffb4e474ca0178ec5b13c','format':'iframe','height':50,'width':320,'params':{}};</script>
-  <script src="//www.highperformanceformat.com/dd1a0bafdb2ffb4e474ca0178ec5b13c/invoke.js"></script>
-</div>
+            <!-- Right Column - Videos to Watch -->
+            <div class="col-lg-8">
+                <!-- Stats Cards -->
+                <div class="row mb-4" id="statsSection">
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <div class="stats-number" id="totalViews">0</div>
+                            <div class="stats-label">إجمالي المشاهدات</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <div class="stats-number" id="totalVideos">0</div>
+                            <div class="stats-label">الفيديوهات المتاحة</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="stats-card">
+                            <div class="stats-number" id="activeUsers">0</div>
+                            <div class="stats-label">المستخدمين النشطين</div>
+                        </div>
+                    </div>
+                </div>
 
-<footer>© 2025 Trendy Hub | جميع الحقوق محفوظة</footer>
+                <!-- Videos to Watch Card -->
+                <div class="card" id="videosSection">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span><i class="fas fa-play-circle"></i> فيديوهات للمشاهدة</span>
+                        <div>
+                            <select class="form-select form-select-sm" id="sortSelect" style="width: auto; display: inline-block;">
+                                <option value="newest">الأحدث أولاً</option>
+                                <option value="oldest">الأقدم أولاً</option>
+                                <option value="points">الأعلى نقاطاً</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="videosList">
+                            <div class="text-center py-5">
+                                <i class="fas fa-spinner fa-spin fa-3x text-primary mb-3"></i>
+                                <p>جاري تحميل الفيديوهات...</p>
+                            </div>
+                        </div>
+                        <div class="loading-spinner" id="loadingSpinner">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">جاري تحميل المزيد من الفيديوهات...</p>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button class="btn btn-outline-primary" id="loadMoreBtn">
+                                <i class="fas fa-plus"></i> تحميل المزيد
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<script>
-// بيانات وهمية لكن واقعية ومتجددة داخلياً
-const mockData = {
-  news: [
-    {title:"Biden signs new AI regulation bill",link:"#"},
-    {title:"US inflation drops to 2.9% in July",link:"#"},
-    {title:"Supreme Court rules on student debt",link:"#"}
-  ],
-  sports: [
-    {title:"Lakers trade for superstar guard",link:"#"},
-    {title:"NFL season tickets sell out in 5 hours",link:"#"},
-    {title:"US women’s soccer wins final",link:"#"}
-  ],
-  weightloss: [
-    {title:"Keto diet: 7-day meal plan revealed",link:"#"},
-    {title:"Intermittent fasting 16/8 success stories",link:"#"},
-    {title:"10-minute fat-burning workout at home",link:"#"}
-  ],
-  food: [
-    {title:"Best summer smoothie recipes 2025",link:"#"},
-    {title:"Top 5 healthy US street foods",link:"#"},
-    {title:"Avocado toast hacks you must try",link:"#"}
-  ],
-  crypto: [
-    {title:"Bitcoin hits $75K amid ETF hype",link:"#"},
-    {title:"Ethereum 2.0 staking rewards explained",link:"#"},
-    {title:"Solana NFT market cap doubles",link:"#"}
-  ],
-  economy: [
-    {title:"Fed hints at rate cut in September",link:"#"},
-    {title:"US jobless claims at 3-year low",link:"#"},
-    {title:"Mortgage rates fall below 6%",link:"#"}
-  ]
-};
+    <!-- About Section -->
+    <section class="py-5 bg-light" id="aboutSection">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 mx-auto text-center">
+                    <h2 class="mb-4">كيف تعمل المنصة؟</h2>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <div class="text-primary mb-3">
+                                        <i class="fas fa-user-plus fa-3x"></i>
+                                    </div>
+                                    <h5>سجل حسابك</h5>
+                                    <p>أنشئ حسابك مجاناً واحصل على 10 نقاط هداية ترحيبية</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <div class="text-primary mb-3">
+                                        <i class="fas fa-video fa-3x"></i>
+                                    </div>
+                                    <h5>أضف فيديوهاتك</h5>
+                                    <p>أضف روابط فيديوهاتك وحدد عدد النقاط التي تريد إنفاقها</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <div class="text-primary mb-3">
+                                        <i class="fas fa-exchange-alt fa-3x"></i>
+                                    </div>
+                                    <h5>تبادل المشاهدات</h5>
+                                    <p>شاهد فيديوهات الآخرين واكسب نقاط لزيادة مشاهدات فيديوهاتك</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-let currentSection = 'news';
-const container = document.getElementById('articles-container');
-const buttons = document.querySelectorAll('.section-btn');
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5>يوتيوب بلس</h5>
+                    <p>منصة متخصصة في تبادل مشاهدات اليوتيوب بطريقة آمنة وفعالة</p>
+                    <div class="mt-3">
+                        <a href="#" class="me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-youtube fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>روابط سريعة</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">الرئيسية</a></li>
+                        <li class="mb-2"><a href="#">كيف يعمل</a></li>
+                        <li class="mb-2"><a href="#">الأسئلة الشائعة</a></li>
+                        <li class="mb-2"><a href="#">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5>السياسات</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#">شروط الاستخدام</a></li>
+                        <li class="mb-2"><a href="#">سياسة الخصوصية</a></li>
+                        <li class="mb-2"><a href="#">سياسة الإرجاع</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h5>النشرة البريدية</h5>
+                    <p>اشترك في نشرتنا البريدية للحصول على أحدث العروض والميزات</p>
+                    <form class="mt-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="بريدك الإلكتروني">
+                            <button class="btn btn-primary" type="button">اشترك</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="my-4 bg-secondary">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2023 يوتيوب بلس. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
 
-function loadSection(section){
-  currentSection = section;
-  buttons.forEach(b=>b.classList.remove('active'));
-  document.querySelector(`[data-sec="${section}"]`).classList.add('active');
-  container.innerHTML = '';
-  const list = mockData[section];
-  list.forEach(item=>{
-    const card = document.createElement('article');
-    const keyword = item.title.split(' ')[0];
-    const img = `https://source.unsplash.com/800x400/?${keyword},${section}`;
-    card.innerHTML = `
-      <img src="${img}" alt="${item.title}">
-      <div class="content">
-        <h2><a href="${item.link}" target="_blank">${item.title}</a></h2>
-        <p>آخر تحديث: منذ ${Math.floor(Math.random()*10)+1} دقائق</p>
-      </div>
-    `;
-    container.appendChild(card);
-  });
-}
+    <!-- Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">تسجيل الدخول</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" id="loginEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">كلمة المرور</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="rememberMe">
+                            <label class="form-check-label" for="rememberMe">تذكرني</label>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">تسجيل الدخول</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>ليس لديك حساب؟ <a href="#" id="registerLink">سجل الآن</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-// تفعيل الأزرار
-buttons.forEach(btn=>btn.addEventListener('click',()=>loadSection(btn.dataset.sec)));
+    <!-- Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">إنشاء حساب جديد</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="registerForm">
+                        <div class="mb-3">
+                            <label for="registerName" class="form-label">الاسم الكامل</label>
+                            <input type="text" class="form-control" id="registerName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerEmail" class="form-label">البريد الإلكتروني</label>
+                            <input type="email" class="form-control" id="registerEmail" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerPassword" class="form-label">كلمة المرور</label>
+                            <input type="password" class="form-control" id="registerPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">تأكيد كلمة المرور</label>
+                            <input type="password" class="form-control" id="confirmPassword" required>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="agreeTerms" required>
+                            <label class="form-check-label" for="agreeTerms">أوافق على <a href="#">الشروط والأحكام</a></label>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">إنشاء الحساب</button>
+                        </div>
+                    </form>
+                    <div class="text-center mt-3">
+                        <p>لديك حساب بالفعل؟ <a href="#" id="loginLink">سجل دخولك</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-// تحميل القسم الأول + تحديث كل دقيقة
-loadSection();
-setInterval(loadSection, 60000, currentSection);
-</script>
+    <!-- How It Works Modal -->
+    <div class="modal fade" id="howItWorksModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">كيف تعمل المنصة؟</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="accordion" id="howItWorksAccordion">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                    <i class="fas fa-user-plus me-2"></i> إنشاء حساب
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#howItWorksAccordion">
+                                <div class="accordion-body">
+                                    <p>أنشئ حسابك مجاناً في أقل من دقيقة. ستحصل على 10 نقاط هدايا ترحيبية يمكنك استخدامها فوراً لزيادة مشاهدات فيديوهاتك.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                    <i class="fas fa-plus-circle me-2"></i> إضافة فيديوهاتك
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#howItWorksAccordion">
+                                <div class="accordion-body">
+                                    <p>أضف روابط فيديوهاتك من يوتيوب وحدد عدد النقاط التي تريد إنفاقها على كل مشاهدة. كل نقطة تعادل مشاهدة واحدة لفيديوهاتك.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                    <i class="fas fa-play-circle me-2"></i> مشاهدة الفيديوهات
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#howItWorksAccordion">
+                                <div class="accordion-body">
+                                    <p>شاهد فيديوهات الآخرين واكسب نقطة واحدة عن كل مشاهدة. يجب مشاهدة الفيديو لمدة 30 ثانية على الأقل للحصول على النقاط.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingFour">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour">
+                                    <i class="fas fa-chart-line me-2"></i> تتبع النتائج
+                                </button>
+                            </h2>
+                            <div id="collapseFour" class="accordion-collapse collapse" data-bs-parent="#howItWorksAccordion">
+                                <div class="accordion-body">
+                                    <p>تابع زيادة مشاهدات فيديوهاتك في الوقت الفعلي. يمكنك عرض إحصائيات مفصلة عن أداء كل فيديو وعدد المشاهدات التي حصل عليها.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
+                    <button type="button" class="btn btn-primary" id="startNowBtn">ابدأ الآن</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Alert -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="successAlert" class="alert alert-success alert-dismissible fade" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            <span id="successMessage">تمت العملية بنجاح!</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <!-- Error Alert -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="errorAlert" class="alert alert-danger alert-dismissible fade" role="alert">
+            <i class="fas fa-exclamation-circle me-2"></i>
+            <span id="errorMessage">حدث خطأ، يرجى المحاولة مرة أخرى!</span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Simulated database
+        let users = JSON.parse(localStorage.getItem('users')) || [];
+        let videos = JSON.parse(localStorage.getItem('videos')) || [];
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let watchedVideos = JSON.parse(localStorage.getItem('watchedVideos')) || [];
+
+        // DOM Elements
+        const loginBtn = document.getElementById('loginBtn');
+        const getStartedBtn = document.getElementById('getStartedBtn');
+        const howItWorksBtn = document.getElementById('howItWorksBtn');
+        const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+        const registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+        const howItWorksModal = new bootstrap.Modal(document.getElementById('howItWorksModal'));
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const addVideoForm = document.getElementById('addVideoForm');
+        const videosList = document.getElementById('videosList');
+        const userVideosList = document.getElementById('userVideosList');
+        const userPoints = document.getElementById('userPoints');
+        const totalViews = document.getElementById('totalViews');
+        const totalVideos = document.getElementById('totalVideos');
+        const activeUsers = document.getElementById('activeUsers');
+        const successAlert = document.getElementById('successAlert');
+        const errorAlert = document.getElementById('errorAlert');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+        const sortSelect = document.getElementById('sortSelect');
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const loadingSpinner = document.getElementById('loadingSpinner');
+
+        // Initialize the app
+        function init() {
+            updateUI();
+            renderVideos();
+            renderUserVideos();
+            updateStats();
+            
+            // Event listeners
+            loginBtn.addEventListener('click', () => {
+                if (currentUser) {
+                    logout();
+                } else {
+                    loginModal.show();
+                }
+            });
+            
+            getStartedBtn.addEventListener('click', () => {
+                if (!currentUser) {
+                    loginModal.show();
+                } else {
+                    document.getElementById('videoTitle').focus();
+                }
+            });
+            
+            howItWorksBtn.addEventListener('click', () => {
+                howItWorksModal.show();
+            });
+            
+            document.getElementById('registerLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.hide();
+                registerModal.show();
+            });
+            
+            document.getElementById('loginLink').addEventListener('click', (e) => {
+                e.preventDefault();
+                registerModal.hide();
+                loginModal.show();
+            });
+            
+            document.getElementById('startNowBtn').addEventListener('click', () => {
+                howItWorksModal.hide();
+                if (!currentUser) {
+                    loginModal.show();
+                } else {
+                    document.getElementById('videoTitle').focus();
+                }
+            });
+            
+            loginForm.addEventListener('submit', handleLogin);
+            registerForm.addEventListener('submit', handleRegister);
+            addVideoForm.addEventListener('submit', handleAddVideo);
+            sortSelect.addEventListener('change', renderVideos);
+            loadMoreBtn.addEventListener('click', loadMoreVideos);
+        }
+
+        // Update UI based on current user
+        function updateUI() {
+            if (currentUser) {
+                loginBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> تسجيل الخروج';
+                userPoints.textContent = currentUser.points;
+            } else {
+                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> تسجيل الدخول';
+                userPoints.textContent = '0';
+            }
+        }
+
+        // Handle login
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            const user = users.find(u => u.email === email && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                loginModal.hide();
+                updateUI();
+                renderUserVideos();
+                showSuccess('تم تسجيل الدخول بنجاح!');
+            } else {
+                showError('البريد الإلكتروني أو كلمة المرور غير صحيحة!');
+            }
+        }
+
+        // Handle registration
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('registerName').value;
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                showError('كلمة المرور وتأكيدها غير متطابقين!');
+                return;
+            }
+            
+            if (users.some(u => u.email === email)) {
+                showError('البريد الإلكتروني مستخدم بالفعل!');
+                return;
+            }
+            
+            const newUser = {
+                id: Date.now(),
+                name,
+                email,
+                password,
+                points: 10, // Welcome bonus
+                joinedAt: new Date().toISOString()
+            };
+            
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            registerModal.hide();
+            updateUI();
+            showSuccess('تم إنشاء الحساب بنجاح! لديك 10 نقاط هدايا ترحيبية.');
+        }
+
+        // Handle logout
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('currentUser');
+            updateUI();
+            renderUserVideos();
+            showSuccess('تم تسجيل الخروج بنجاح!');
+        }
+
+        // Handle adding a video
+        function handleAddVideo(e) {
+            e.preventDefault();
+            
+            if (!currentUser) {
+                showError('يجب تسجيل الدخول أولاً!');
+                loginModal.show();
+                return;
+            }
+            
+            const title = document.getElementById('videoTitle').value;
+            const url = document.getElementById('videoUrl').value;
+            const points = parseInt(document.getElementById('videoPoints').value);
+            
+            if (currentUser.points < points) {
+                showError('نقاطك غير كافية لإضافة هذا الفيديو!');
+                return;
+            }
+            
+            // Extract video ID from YouTube URL
+            const videoId = extractVideoId(url);
+            if (!videoId) {
+                showError('رابط يوتيوب غير صالح!');
+                return;
+            }
+            
+            const newVideo = {
+                id: Date.now(),
+                userId: currentUser.id,
+                userName: currentUser.name,
+                title,
+                url,
+                videoId,
+                points,
+                pointsSpent: 0,
+                views: 0,
+                addedAt: new Date().toISOString()
+            };
+            
+            videos.push(newVideo);
+            localStorage.setItem('videos', JSON.stringify(videos));
+            
+            // Deduct points from user
+            currentUser.points -= points;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            // Update user in users array
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+            
+            addVideoForm.reset();
+            updateUI();
+            renderVideos();
+            renderUserVideos();
+            updateStats();
+            showSuccess('تمت إضافة الفيديو بنجاح!');
+        }
+
+        // Extract YouTube video ID from URL
+        function extractVideoId(url) {
+            const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\n?#]+)/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        }
+
+        // Render videos to watch
+        function renderVideos() {
+            const sortBy = sortSelect.value;
+            let sortedVideos = [...videos];
+            
+            // Filter out user's own videos and videos already watched
+            if (currentUser) {
+                sortedVideos = sortedVideos.filter(video => 
+                    video.userId !== currentUser.id && 
+                    !watchedVideos.some(w => w.videoId === video.id && w.userId === currentUser.id)
+                );
+            }
+            
+            // Sort videos
+            switch (sortBy) {
+                case 'newest':
+                    sortedVideos.sort((a, b) => new Date(b.addedAt) - new Date(a.addedAt));
+                    break;
+                case 'oldest':
+                    sortedVideos.sort((a, b) => new Date(a.addedAt) - new Date(b.addedAt));
+                    break;
+                case 'points':
+                    sortedVideos.sort((a, b) => b.points - a.points);
+                    break;
+            }
+            
+            // Limit to 10 videos initially
+            const videosToShow = sortedVideos.slice(0, 10);
+            
+            if (videosToShow.length === 0) {
+                videosList.innerHTML = `
+                    <div class="text-center py-5">
+                        <i class="fas fa-video-slash fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">لا توجد فيديوهات متاحة للمشاهدة حالياً</p>
+                        ${!currentUser ? '<button class="btn btn-primary" onclick="loginModal.show()">سجل دخولك للمشاركة</button>' : ''}
+                    </div>
+                `;
+                return;
+            }
+            
+            videosList.innerHTML = videosToShow.map(video => `
+                <div class="video-item d-flex align-items-center">
+                    <img src="https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg" alt="${video.title}" class="video-thumbnail">
+                    <div class="flex-grow-1">
+                        <div class="video-title">${video.title}</div>
+                        <div class="video-meta">
+                            <i class="fas fa-user"></i> ${video.userName} • 
+                            <i class="fas fa-eye"></i> ${video.views} مشاهدة • 
+                            <i class="fas fa-coins"></i> ${video.points} نقطة
+                        </div>
+                    </div>
+                    <button class="watch-btn" onclick="watchVideo(${video.id})" ${!currentUser ? 'disabled' : ''}>
+                        <i class="fas fa-play"></i> مشاهدة
+                    </button>
+                </div>
+            `).join('');
+            
+            // Show/hide load more button
+            loadMoreBtn.style.display = sortedVideos.length > 10 ? 'block' : 'none';
+        }
+
+        // Render user's videos
+        function renderUserVideos() {
+            if (!currentUser) {
+                userVideosList.innerHTML = `
+                    <div class="text-center py-4">
+                        <i class="fas fa-user-slash fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">يجب تسجيل الدخول لعرض فيديوهاتك</p>
+                        <button class="btn btn-primary" onclick="loginModal.show()">تسجيل الدخول</button>
+                    </div>
+                `;
+                return;
+            }
+            
+            const userVideos = videos.filter(video => video.userId === currentUser.id);
+            
+            if (userVideos.length === 0) {
+                userVideosList.innerHTML = `
+                    <div class="text-center py-4">
+                        <i class="fas fa-video-slash fa-3x text-muted mb-3"></i>
+                        <p class="text-muted">لم تقم بإضافة أي فيديوهات بعد</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            userVideosList.innerHTML = userVideos.map(video => `
+                <div class="video-item">
+                    <div class="d-flex align-items-center mb-2">
+                        <img src="https://img.youtube.com/vi/${video.videoId}/mqdefault.jpg" alt="${video.title}" class="video-thumbnail">
+                        <div class="flex-grow-1">
+                            <div class="video-title">${video.title}</div>
+                            <div class="video-meta">
+                                <i class="fas fa-eye"></i> ${video.views} مشاهدة • 
+                                <i class="fas fa-coins"></i> ${video.pointsSpent}/${video.points} نقطة مستهلكة
+                            </div>
+                        </div>
+                    </div>
+                    <div class="progress mb-2" style="height: 10px;">
+                        <div class="progress-bar bg-success" role="progressbar" 
+                             style="width: ${(video.pointsSpent / video.points) * 100}%"
+                             aria-valuenow="${video.pointsSpent}" 
+                             aria-valuemin="0" 
+                             aria-valuemax="${video.points}">
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <small class="text-muted">تم استهلاك ${video.pointsSpent} من ${video.points} نقطة</small>
+                        <button class="delete-btn" onclick="deleteVideo(${video.id})">
+                            <i class="fas fa-trash"></i> حذف
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Watch a video and earn points
+        function watchVideo(videoId) {
+            if (!currentUser) {
+                showError('يجب تسجيل الدخول أولاً!');
+                loginModal.show();
+                return;
+            }
+            
+            const video = videos.find(v => v.id === videoId);
+            if (!video) return;
+            
+            // Simulate watching the video
+            setTimeout(() => {
+                // Add to watched videos
+                watchedVideos.push({
+                    userId: currentUser.id,
+                    videoId: video.id,
+                    watchedAt: new Date().toISOString()
+                });
+                localStorage.setItem('watchedVideos', JSON.stringify(watchedVideos));
+                
+                // Add point to current user
+                currentUser.points += 1;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                // Update user in users array
+                const userIndex = users.findIndex(u => u.id === currentUser.id);
+                if (userIndex !== -1) {
+                    users[userIndex] = currentUser;
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+                
+                // Update video
+                video.views += 1;
+                video.pointsSpent += 1;
+                localStorage.setItem('videos', JSON.stringify(videos));
+                
+                // Update UI
+                updateUI();
+                renderVideos();
+                renderUserVideos();
+                updateStats();
+                showSuccess('اكسبت نقطة واحدة! شكراً لمشاهدتك.');
+            }, 2000); // Simulate 2 seconds of watching
+        }
+
+        // Delete a video
+        function deleteVideo(videoId) {
+            if (!confirm('هل أنت متأكد من حذف هذا الفيديو؟')) return;
+            
+            const videoIndex = videos.findIndex(v => v.id === videoId);
+            if (videoIndex === -1) return;
+            
+            const video = videos[videoIndex];
+            
+            // Refund remaining points to user
+            const remainingPoints = video.points - video.pointsSpent;
+            if (remainingPoints > 0) {
+                currentUser.points += remainingPoints;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                // Update user in users array
+                const userIndex = users.findIndex(u => u.id === currentUser.id);
+                if (userIndex !== -1) {
+                    users[userIndex] = currentUser;
+                    localStorage.setItem('users', JSON.stringify(users));
+                }
+            }
+            
+            // Remove video
+            videos.splice(videoIndex, 1);
+            localStorage.setItem('videos', JSON.stringify(videos));
+            
+            // Update UI
+            updateUI();
+            renderVideos();
+            renderUserVideos();
+            updateStats();
+            showSuccess('تم حذف الفيديو بنجاح!');
+        }
+
+        // Load more videos
+        function loadMoreVideos() {
+            loadingSpinner.style.display = 'block';
+            loadMoreBtn.disabled = true;
+            
+            // Simulate loading delay
+            setTimeout(() => {
+                loadingSpinner.style.display = 'none';
+                loadMoreBtn.disabled = false;
+                showSuccess('تم تحميل المزيد من الفيديوهات!');
+            }, 1500);
+        }
+
+        // Update statistics
+        function updateStats() {
+            const totalViewsCount = videos.reduce((sum, video) => sum + video.views, 0);
+            const totalVideosCount = videos.length;
+            const activeUsersCount = users.length;
+            
+            totalViews.textContent = totalViewsCount;
+            totalVideos.textContent = totalVideosCount;
+            activeUsers.textContent = activeUsersCount;
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            successMessage.textContent = message;
+            successAlert.classList.add('show');
+            setTimeout(() => {
+                successAlert.classList.remove('show');
+            }, 3000);
+        }
+
+        // Show error message
+        function showError(message) {
+            errorMessage.textContent = message;
+            errorAlert.classList.add('show');
+            setTimeout(() => {
+                errorAlert.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
 </body>
 </html>
